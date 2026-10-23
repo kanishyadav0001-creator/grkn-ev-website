@@ -1,0 +1,2537 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRKN EV Infrastructure | Powering Future Mobility & 11kV Grid Infrastructure</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            950: '#060B19',
+                            900: '#0B132B',
+                            800: '#131F42',
+                            700: '#1E293B'
+                        },
+                        emerald: {
+                            400: '#34D399',
+                            500: '#10B981',
+                            600: '#059669'
+                        },
+                        cyan: {
+                            400: '#22D3EE',
+                            500: '#06B6D4',
+                            600: '#0891B2'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Industrial & High-Voltage Styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC;
+            color: #0F172A;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .bg-grid-pattern {
+            background-image: 
+                linear-gradient(to right, rgba(16, 185, 129, 0.07) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(6, 182, 212, 0.07) 1px, transparent 1px);
+            background-size: 36px 36px;
+        }
+        .bg-dark-grid {
+            background-color: #0B132B;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 80%, rgba(6, 182, 212, 0.15) 0%, transparent 40%),
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 44px 44px, 44px 44px;
+        }
+        .glow-emerald {
+            box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.45);
+        }
+        .glow-cyan {
+            box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.45);
+        }
+        .service-card {
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 35px -10px rgba(11, 19, 43, 0.12), 0 0 0 1px rgba(16, 185, 129, 0.35);
+        }
+        /* Pulse animation for live grid nodes */
+        @keyframes pulse-ring {
+            0% { transform: scale(0.85); opacity: 0.8; }
+            70% { transform: scale(1.75); opacity: 0; }
+            100% { transform: scale(1.75); opacity: 0; }
+        }
+        .pulse-dot::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 9999px;
+            background-color: #10B981;
+            animation: pulse-ring 2s infinite;
+        }
+        /* Range Slider Customization */
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 22px;
+            width: 22px;
+            border-radius: 50%;
+            background: #10B981;
+            cursor: pointer;
+            border: 3px solid #ffffff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .slide-fade {
+            animation: fadeIn 0.55s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* AI Agent Chat Widget & Markdown Styling */
+        @keyframes typingBounce {
+            0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+            40% { transform: translateY(-5px); opacity: 1; }
+        }
+        .typing-dot {
+            animation: typingBounce 1.2s infinite ease-in-out;
+        }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        .ai-markdown p { margin-bottom: 0.55rem; }
+        .ai-markdown p:last-child { margin-bottom: 0; }
+        .ai-markdown ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 0.6rem; }
+        .ai-markdown li { margin-bottom: 0.25rem; }
+        .ai-markdown strong { color: #34D399; font-weight: 700; }
+        .ai-chat-scroll::-webkit-scrollbar { width: 6px; }
+        .ai-chat-scroll::-webkit-scrollbar-track { background: #060B19; }
+        .ai-chat-scroll::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 9999px; }
+    </style>
+</head>
+<body class="antialiased selection:bg-emerald-500 selection:text-white">
+
+    <!-- ==================== TOP INFO BAR (Inspired by neonpower.in) ==================== -->
+    <div class="bg-navy-950 text-slate-300 text-xs border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+                <span class="inline-flex items-center gap-1.5 text-emerald-400 font-medium">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    Pan-India EPC: Bhiwadi HQ • Indore Hub • NCR • Gujarat • Karnataka • UP • Punjab • TN • Kerala
+                </span>
+                <span class="hidden xl:inline-flex items-center gap-1.5 text-slate-400">
+                    <i class="fa-regular fa-clock text-cyan-400"></i>
+                    <span id="topWorkingHours">Mon - Sat: 09:00 AM - 06:00 PM</span>
+                </span>
+            </div>
+            <div class="flex items-center gap-4 sm:gap-6 ml-auto">
+                <a href="tel:+919876543210" id="topPhoneLink" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5">
+                    <i class="fa-solid fa-phone-volume text-emerald-400"></i>
+                    <span id="topPhoneText">+91-XXXXXXXXXX (Update Info)</span>
+                </a>
+                <a href="mailto:kanishyadav0001@gmail.com" id="topEmailLink" class="hidden sm:flex hover:text-cyan-400 transition-colors items-center gap-1.5">
+                    <i class="fa-regular fa-envelope text-cyan-400"></i>
+                    <span id="topEmailText">kanishyadav0001@gmail.com</span>
+                </a>
+                <button onclick="openContactCustomizer()" class="bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded text-[11px] font-medium transition flex items-center gap-1" title="Click to customize your company phone, email & address">
+                    <i class="fa-solid fa-sliders"></i> Edit Contact Info
+                </button>
+                <button onclick="openDeployGuideModal()" class="bg-emerald-500/20 hover:bg-emerald-500/30 text-cyan-300 border border-cyan-500/40 px-2.5 py-1 rounded text-[11px] font-medium transition flex items-center gap-1" title="Step-by-step guide to publish from GitHub Private Repository">
+                    <i class="fa-brands fa-github"></i> GitHub Launch Guide
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== STICKY MAIN NAVBAR ==================== -->
+    <header class="sticky top-0 z-40 bg-navy-900/95 backdrop-blur-md border-b border-slate-800 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <a href="#home" class="flex items-center gap-3 group focus:outline-none">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-500 p-0.5 shadow-md group-hover:scale-105 transition-transform">
+                        <div class="w-full h-full bg-navy-950 rounded-[10px] flex items-center justify-center">
+                            <!-- Custom High-Voltage Bolt + EV Plug SVG -->
+                            <svg class="w-6 h-6 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="font-heading font-extrabold text-xl sm:text-2xl tracking-tight text-white">GRKN</span>
+                            <span class="font-heading font-bold text-sm sm:text-base uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">EV INFRA</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 tracking-wide hidden sm:block">Powering Future Electric Mobility & Infrastructure</p>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden lg:flex items-center gap-1 xl:gap-1.5 text-sm font-medium text-slate-200">
+                    <a href="#home" class="px-2.5 py-2 rounded-lg hover:text-emerald-400 hover:bg-white/5 transition">Home</a>
+                    <a href="#about" class="px-2.5 py-2 rounded-lg hover:text-emerald-400 hover:bg-white/5 transition">About Us</a>
+                    <a href="#services" class="px-2.5 py-2 rounded-lg hover:text-emerald-400 hover:bg-white/5 transition">Core Services (01–05)</a>
+                    <a href="#estimator" class="px-2.5 py-2 rounded-lg text-cyan-400 hover:bg-cyan-500/10 transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-calculator text-xs"></i> Load & BOQ Estimator
+                    </a>
+                    <a href="#footprint" class="px-2.5 py-2 rounded-lg hover:text-emerald-400 hover:bg-white/5 transition">Pan-India Projects</a>
+                    <a href="#insights" class="px-2.5 py-2 rounded-lg hover:text-emerald-400 hover:bg-white/5 transition">Insights</a>
+                    <a href="#contact" class="px-2.5 py-2 rounded-lg hover:text-emerald-400 hover:bg-white/5 transition">Contact Us</a>
+                </nav>
+
+                <!-- Action Buttons: Ask AI Engineer + Get A Quote + Mobile Trigger -->
+                <div class="flex items-center gap-2.5">
+                    <button type="button" onclick="toggleAIChat(true)" class="inline-flex items-center gap-2 bg-slate-800/90 hover:bg-slate-700 text-emerald-300 border border-emerald-500/40 font-heading font-bold text-xs sm:text-sm px-3.5 py-2.5 rounded-xl transition-all shadow-sm">
+                        <span class="relative flex h-2.5 w-2.5">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                        </span>
+                        <i class="fa-solid fa-robot text-cyan-400"></i>
+                        <span class="hidden md:inline">Ask AI Engineer</span>
+                        <span class="md:hidden">AI Help</span>
+                    </button>
+                    <a href="#contact" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-navy-950 font-heading font-bold text-sm px-4 py-2.5 rounded-xl glow-emerald transition-all transform hover:-translate-y-0.5">
+                        <span>Get A Quote</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                    <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="lg:hidden p-2.5 rounded-xl bg-slate-800 text-slate-200 hover:text-emerald-400 focus:outline-none" aria-label="Toggle Menu">
+                        <i id="mobileMenuIcon" class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-navy-950 border-b border-slate-800 px-4 pt-3 pb-6 space-y-2">
+            <a href="#home" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-lg text-slate-200 hover:bg-slate-800/80 hover:text-emerald-400 font-medium">Home</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-lg text-slate-200 hover:bg-slate-800/80 hover:text-emerald-400 font-medium">About Us</a>
+            <a href="#services" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-lg text-slate-200 hover:bg-slate-800/80 hover:text-emerald-400 font-medium">Core Services (01–05)</a>
+            <a href="#estimator" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-lg text-cyan-400 bg-cyan-950/40 border border-cyan-500/20 font-medium">
+                <i class="fa-solid fa-calculator mr-1.5"></i> Load & BOQ Estimator
+            </a>
+            <a href="#process" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-lg text-slate-200 hover:bg-slate-800/80 hover:text-emerald-400 font-medium">Working Process</a>
+            <a href="#footprint" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-lg text-slate-200 hover:bg-slate-800/80 hover:text-emerald-400 font-medium">Pan-India Projects</a>
+            <a href="#insights" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-lg text-slate-200 hover:bg-slate-800/80 hover:text-emerald-400 font-medium">Blog / Insights</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-lg text-slate-200 hover:bg-slate-800/80 hover:text-emerald-400 font-medium">Contact Us</a>
+            <div class="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <button type="button" onclick="toggleMobileMenu(); toggleAIChat(true);" class="w-full inline-flex items-center justify-center gap-2 bg-slate-800 text-emerald-300 border border-emerald-500/40 font-heading font-bold py-3 rounded-xl">
+                    <i class="fa-solid fa-robot text-cyan-400"></i>
+                    <span>Ask GRKN AI Engineer (Live)</span>
+                </button>
+                <a href="#contact" onclick="toggleMobileMenu()" class="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-cyan-500 text-navy-950 font-heading font-bold py-3 rounded-xl">
+                    <span>Request Turnkey EPC Quote</span>
+                    <i class="fa-solid fa-bolt"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== 1. INTERACTIVE HERO SLIDER (3 Slides) ==================== -->
+    <section id="home" class="relative bg-dark-grid text-white overflow-hidden">
+        <!-- Decorative glowing orbs -->
+        <div class="pointer-events-none absolute -top-24 -left-24 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl"></div>
+        <div class="pointer-events-none absolute bottom-0 right-0 w-[28rem] h-[28rem] rounded-full bg-cyan-500/10 blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+                
+                <!-- Left Column: Dynamic Hero Slide Content -->
+                <div class="lg:col-span-7 space-y-6" id="heroSlideContainer">
+                    <!-- Badge -->
+                    <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs sm:text-sm font-semibold tracking-wide">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span id="slideTag">Welcome to GRKN EV Infrastructure</span>
+                    </div>
+
+                    <!-- Dynamic Main Headline -->
+                    <h1 id="slideHeadline" class="font-heading font-extrabold text-3xl sm:text-5xl lg:text-[54px] leading-[1.12] tracking-tight text-white">
+                        Powering The Future Of <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Electric Mobility</span>
+                    </h1>
+
+                    <!-- Dynamic Subtext -->
+                    <p id="slideSubtext" class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl">
+                        End-to-End Turnkey EPC Solutions for 30kW to 300kW Ultra-Fast DC Charging Stations across India — from DISCOM load sanctioning and 11kV substations to precision civil plinths and charger commissioning.
+                    </p>
+
+                    <!-- Dynamic Technical Pills -->
+                    <div id="slidePills" class="flex flex-wrap gap-2.5 pt-1">
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800/90 border border-slate-700 text-xs font-medium text-emerald-300">
+                            <i class="fa-solid fa-charging-station mr-1.5"></i>30kW – 300kW Ultra-Fast DC
+                        </span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800/90 border border-slate-700 text-xs font-medium text-cyan-300">
+                            <i class="fa-solid fa-bolt mr-1.5"></i>11kV HT Transformers & RMU/VCB
+                        </span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800/90 border border-slate-700 text-xs font-medium text-slate-200">
+                            <i class="fa-solid fa-file-shield mr-1.5"></i>DISCOM & CEIG Approvals
+                        </span>
+                    </div>
+
+                    <!-- Hero CTAs -->
+                    <div class="flex flex-wrap items-center gap-4 pt-3">
+                        <a href="#services" class="inline-flex items-center gap-2.5 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-navy-950 font-heading font-bold px-7 py-4 rounded-xl glow-emerald transition-all transform hover:-translate-y-0.5 text-sm sm:text-base">
+                            <span>Explore Services</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <button type="button" onclick="toggleAIChat(true)" class="inline-flex items-center gap-2.5 bg-slate-800/95 hover:bg-slate-700 text-emerald-300 border border-emerald-500/40 font-heading font-semibold px-6 py-4 rounded-xl transition-all text-sm sm:text-base">
+                            <i class="fa-solid fa-robot text-cyan-400"></i>
+                            <span>Consult AI EPC Engineer</span>
+                        </button>
+                    </div>
+
+                    <!-- Slider Navigation Controls (01 / 03) -->
+                    <div class="pt-6 flex items-center gap-5 border-t border-slate-800/80">
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="prevHeroSlide()" class="w-9 h-9 rounded-lg bg-slate-800/90 hover:bg-emerald-500 hover:text-navy-950 text-slate-300 flex items-center justify-center transition" aria-label="Previous Slide">
+                                <i class="fa-solid fa-chevron-left text-xs"></i>
+                            </button>
+                            <button type="button" onclick="nextHeroSlide()" class="w-9 h-9 rounded-lg bg-slate-800/90 hover:bg-emerald-500 hover:text-navy-950 text-slate-300 flex items-center justify-center transition" aria-label="Next Slide">
+                                <i class="fa-solid fa-chevron-right text-xs"></i>
+                            </button>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button type="button" id="slideDot0" onclick="setHeroSlide(0)" class="h-2.5 w-10 rounded-full bg-emerald-400 transition-all" aria-label="Slide 1"></button>
+                            <button type="button" id="slideDot1" onclick="setHeroSlide(1)" class="h-2.5 w-3 rounded-full bg-slate-700 hover:bg-slate-500 transition-all" aria-label="Slide 2"></button>
+                            <button type="button" id="slideDot2" onclick="setHeroSlide(2)" class="h-2.5 w-3 rounded-full bg-slate-700 hover:bg-slate-500 transition-all" aria-label="Slide 3"></button>
+                        </div>
+                        <span id="slideCounter" class="text-xs font-mono text-emerald-400 font-bold tracking-widest ml-auto">01 / 03</span>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive Quick Spec & 11kV Grid Visual Card -->
+                <div class="lg:col-span-5">
+                    <div class="rounded-3xl bg-slate-900/90 border border-slate-700/80 p-6 sm:p-7 shadow-2xl relative overflow-hidden">
+                        <div class="flex items-center justify-between pb-4 mb-5 border-b border-slate-800">
+                            <div>
+                                <span class="text-[11px] font-mono uppercase tracking-wider text-cyan-400 block">Live Turnkey Spec Preview</span>
+                                <h3 class="font-heading font-bold text-lg text-white">EV Hub & 11kV Substation Matrix</h3>
+                            </div>
+                            <span id="heroQuickCapBadge" class="px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold">
+                                120kW Ultra-Fast DC
+                            </span>
+                        </div>
+
+                        <!-- Quick Charger Rating Switcher -->
+                        <div class="mb-5">
+                            <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold block mb-2">Select Charger Capacity:</span>
+                            <div class="grid grid-cols-4 gap-2">
+                                <button type="button" id="hqBtn60" onclick="updateHeroQuickSpec('60kW', '100 kVA (11kV/433V)', '3.5C x 120 sq.mm Al XLPE', 'Urban Commercial / Fleet')" class="py-2 px-2 rounded-lg text-xs font-bold border border-slate-700 bg-slate-800/70 text-slate-300 hover:border-emerald-400 transition">60kW</button>
+                                <button type="button" id="hqBtn120" onclick="updateHeroQuickSpec('120kW', '160 kVA (11kV/433V)', '3.5C x 240 sq.mm Al XLPE', 'Highway Midway / Plaza')" class="py-2 px-2 rounded-lg text-xs font-bold border border-emerald-500 bg-emerald-500/20 text-emerald-300 transition">120kW</button>
+                                <button type="button" id="hqBtn240" onclick="updateHeroQuickSpec('240kW', '315 kVA + VCB / RMU', '2 Runs x 3.5C x 240 sq.mm', 'Expressway Ultra-Fast Hub')" class="py-2 px-2 rounded-lg text-xs font-bold border border-slate-700 bg-slate-800/70 text-slate-300 hover:border-emerald-400 transition">240kW</button>
+                                <button type="button" id="hqBtn300" onclick="updateHeroQuickSpec('300kW', '500 kVA + 11kV RMU', '2 Runs x 3.5C x 300 sq.mm', 'Heavy E-Bus / Freight Depot')" class="py-2 px-2 rounded-lg text-xs font-bold border border-slate-700 bg-slate-800/70 text-slate-300 hover:border-emerald-400 transition">300kW</button>
+                            </div>
+                        </div>
+
+                        <!-- Spec Readout Rows -->
+                        <div class="space-y-3 text-xs sm:text-sm mb-6">
+                            <div class="p-3.5 rounded-xl bg-navy-950 border border-slate-800 flex items-center justify-between">
+                                <span class="text-slate-400"><i class="fa-solid fa-bolt text-emerald-400 mr-2"></i>11kV Substation Scope</span>
+                                <span id="hqTrafo" class="font-heading font-bold text-white">160 kVA (11kV/433V)</span>
+                            </div>
+                            <div class="p-3.5 rounded-xl bg-navy-950 border border-slate-800 flex items-center justify-between">
+                                <span class="text-slate-400"><i class="fa-solid fa-ring text-cyan-400 mr-2"></i>Armoured XLPE Cable</span>
+                                <span id="hqCable" class="font-heading font-bold text-cyan-300">3.5C x 240 sq.mm Al XLPE</span>
+                            </div>
+                            <div class="p-3.5 rounded-xl bg-navy-950 border border-slate-800 flex items-center justify-between">
+                                <span class="text-slate-400"><i class="fa-solid fa-road text-emerald-400 mr-2"></i>Ideal Deployment</span>
+                                <span id="hqApp" class="font-heading font-bold text-emerald-300">Highway Midway / Plaza</span>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Mini Highlights -->
+                        <div class="grid grid-cols-3 gap-2 pt-4 border-t border-slate-800 text-center">
+                            <div class="p-2 rounded-lg bg-slate-800/50">
+                                <span class="font-heading font-extrabold text-base text-emerald-400 block">15+ Yrs</span>
+                                <span class="text-[10px] text-slate-400">Infra Leadership</span>
+                            </div>
+                            <div class="p-2 rounded-lg bg-slate-800/50">
+                                <span class="font-heading font-extrabold text-base text-cyan-400 block">9+ States</span>
+                                <span class="text-[10px] text-slate-400">DISCOM Network</span>
+                            </div>
+                            <div class="p-2 rounded-lg bg-slate-800/50">
+                                <span class="font-heading font-extrabold text-base text-white block">30–300kW</span>
+                                <span class="text-[10px] text-slate-400">Turnkey EPC</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 2. ABOUT US & LEADERSHIP SECTION ==================== -->
+    <section id="about" class="py-20 lg:py-24 bg-white border-b border-slate-200/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Column: Leadership & Company Visual Card -->
+                <div class="lg:col-span-5">
+                    <div class="rounded-3xl bg-navy-900 text-white p-7 sm:p-8 shadow-xl relative overflow-hidden border border-slate-800">
+                        <div class="absolute -right-10 -bottom-10 w-44 h-44 rounded-full bg-emerald-500/15 blur-2xl"></div>
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold uppercase tracking-wider mb-5">
+                            <i class="fa-solid fa-award"></i> Leadership With 15+ Years Experience
+                        </span>
+                        <h3 class="font-heading font-extrabold text-2xl text-white mb-4">
+                            Built on Ground-Level Engineering & Turnkey Trust
+                        </h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            From high-voltage 11kV substations and state DISCOM sanctions to ultra-fast highway EV charging hubs and telecom OFC networks, our leadership delivers zero-defect infrastructure across India.
+                        </p>
+
+                        <div class="space-y-4">
+                            <div class="p-4 rounded-2xl bg-navy-950/90 border border-slate-800 flex items-start gap-3.5">
+                                <div class="w-11 h-11 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center shrink-0 font-heading font-bold">
+                                    MR
+                                </div>
+                                <div>
+                                    <h4 class="font-heading font-bold text-base text-white">Mrs. Renu</h4>
+                                    <p class="text-xs text-emerald-400 font-semibold">Founder & Registered Owner — GRKN EV Infrastructure</p>
+                                    <p class="text-xs text-slate-400 mt-1">Driving sustainable clean mobility, ethical corporate governance, and pan-India turnkey expansion.</p>
+                                </div>
+                            </div>
+
+                            <div class="p-4 rounded-2xl bg-navy-950/90 border border-slate-800 flex items-start gap-3.5">
+                                <div class="w-11 h-11 rounded-xl bg-cyan-500/20 border border-cyan-500/40 text-cyan-400 flex items-center justify-center shrink-0 font-heading font-bold">
+                                    GS
+                                </div>
+                                <div>
+                                    <h4 class="font-heading font-bold text-base text-white">Gajender Singh</h4>
+                                    <p class="text-xs text-cyan-400 font-semibold">Operational Leadership (15+ Years Industry Experience)</p>
+                                    <p class="text-xs text-slate-400 mt-1">Veteran specialist in EV Charging EPC, 11kV HT Substations, State DISCOM Liaisoning, Telecom Towers & OFC Rollouts.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-5 border-t border-slate-800 flex items-center justify-between text-xs text-slate-300">
+                            <span><i class="fa-solid fa-building-shield text-emerald-400 mr-1.5"></i>HQ: Bhiwadi (Rajasthan)</span>
+                            <span><i class="fa-solid fa-location-dot text-cyan-400 mr-1.5"></i>Hub: Indore (MP)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Story of Innovation, Execution & Trust -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold uppercase tracking-wider">
+                        <span>About GRKN EV Infrastructure</span>
+                    </div>
+
+                    <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-navy-900 leading-tight">
+                        Our Journey: A Story Of Innovation, Growth, And Trust
+                    </h2>
+
+                    <p class="text-slate-600 text-base leading-relaxed">
+                        Established under the visionary ownership of <strong class="text-navy-900">Mrs. Renu</strong> (Founder & Registered Owner) and propelled by the operational leadership of <strong class="text-navy-900">Gajender Singh</strong>, <strong class="text-emerald-700">GRKN EV Infrastructure</strong> brings over <strong class="text-navy-900">15+ years of deep industry expertise</strong> in Telecom Passive Infrastructure, Optical Fiber Cable (OFC), Tower Projects, 11kV HT Electrical Networks, and EV Charging Turnkey Rollouts across India.
+                    </p>
+
+                    <p class="text-slate-600 text-base leading-relaxed">
+                        Operating from our primary headquarters in <strong class="text-navy-900">Bhiwadi (Rajasthan)</strong> and our Central India operations hub in <strong class="text-navy-900">Indore (Madhya Pradesh)</strong>, we provide end-to-end concept-to-commissioning solutions for Charge Point Operators (CPOs), fleet depots, highway wayside amenities, and commercial developers across <strong class="text-navy-900">Haryana/NCR, Rajasthan, MP, UP, Punjab, Gujarat, Karnataka, Tamil Nadu, and Kerala</strong>.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-start gap-3">
+                            <i class="fa-solid fa-bolt-lightning text-emerald-600 text-lg mt-0.5"></i>
+                            <div>
+                                <h4 class="font-heading font-bold text-sm text-navy-900">30kW–300kW Turnkey EV Hubs</h4>
+                                <p class="text-xs text-slate-600 mt-0.5">M25 RCC civil plinths, canopies, heavy XLPE armoured cabling, earthing & live OCPP commissioning.</p>
+                            </div>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-start gap-3">
+                            <i class="fa-solid fa-plug-circle-bolt text-cyan-600 text-lg mt-0.5"></i>
+                            <div>
+                                <h4 class="font-heading font-bold text-sm text-navy-900">11kV HT Grid & DISCOM Mastery</h4>
+                                <p class="text-xs text-slate-600 mt-0.5">Transformers, RMU, VCB Panels, GOS, HT TOD Metering & CEIG statutory safety clearances.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 3. CORE SERVICES (01 to 05) ==================== -->
+    <section id="services" class="py-20 lg:py-24 bg-slate-50 bg-grid-pattern">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+                <div>
+                    <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-3">
+                        <i class="fa-solid fa-layer-group"></i> Our Core Services (01 / 05)
+                    </span>
+                    <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-navy-900">
+                        Expert Turnkey EPC Services Driving Mobility & Grid Growth
+                    </h2>
+                </div>
+                <a href="#estimator" class="inline-flex items-center gap-2 text-sm font-heading font-bold text-emerald-700 hover:text-emerald-600">
+                    <span>Calculate Site Load & BOQ</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Numbered Services Grid (01 to 05 + Custom Quote Card) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+                
+                <!-- Service 01 -->
+                <div class="service-card bg-white rounded-2xl p-7 border border-slate-200/90 shadow-sm flex flex-col justify-between relative overflow-hidden group">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="font-heading font-extrabold text-4xl text-slate-200 group-hover:text-emerald-500 transition-colors">01</span>
+                            <div class="w-12 h-12 rounded-xl bg-navy-900 text-emerald-400 flex items-center justify-center shadow-md">
+                                <i class="fa-solid fa-charging-station text-xl"></i>
+                            </div>
+                        </div>
+                        <h3 class="font-heading font-bold text-xl text-navy-900 mb-3 group-hover:text-emerald-600 transition-colors">
+                            EV Charging Turnkey EPC (30kW–300kW)
+                        </h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-5">
+                            End-to-end site survey, M25 civil plinth foundation, canopy fabrication, installation of <strong>30kW to 300kW Ultra-Fast CCS2 DC Chargers</strong>, chemical earthing, testing & commissioning.
+                        </p>
+                        <ul class="space-y-2 text-xs text-slate-600 mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Civil plinths, canopy & crash protection bollards</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> LT Feeder Pillar, MCCB, SPD & chemical earthing</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> OCPP CMS router connectivity & load testing</li>
+                        </ul>
+                    </div>
+                    <button onclick="openServiceModal(0)" class="w-full py-3 px-4 rounded-xl bg-slate-100 group-hover:bg-navy-900 text-navy-900 group-hover:text-emerald-400 font-heading font-bold text-xs uppercase tracking-wider transition flex items-center justify-between">
+                        <span>View Technical BOQ Scope</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </button>
+                </div>
+
+                <!-- Service 02 -->
+                <div class="service-card bg-white rounded-2xl p-7 border border-slate-200/90 shadow-sm flex flex-col justify-between relative overflow-hidden group">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="font-heading font-extrabold text-4xl text-slate-200 group-hover:text-cyan-500 transition-colors">02</span>
+                            <div class="w-12 h-12 rounded-xl bg-navy-900 text-cyan-400 flex items-center justify-center shadow-md">
+                                <i class="fa-solid fa-bolt-lightning text-xl"></i>
+                            </div>
+                        </div>
+                        <h3 class="font-heading font-bold text-xl text-navy-900 mb-3 group-hover:text-cyan-600 transition-colors">
+                            11kV HT Substation & Transmission Works
+                        </h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-5">
+                            Complete DP/4-Pole structure, <strong>Gang Operated Switches (GOS), Lightning Arresters, 11kV HT Transformers, Ring Main Units (RMU), VCB Panels, HT TOD Metering</strong> & XLPE Armoured Cabling.
+                        </p>
+                        <ul class="space-y-2 text-xs text-slate-600 mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-500"></i> DP/4-Pole structure with GOS, LA & DO Fuse</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-500"></i> 63 kVA to 2000 kVA 11kV HT Transformers & RMU/VCB</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-500"></i> Heavy-gauge Copper & Aluminium XLPE armoured cables</li>
+                        </ul>
+                    </div>
+                    <button onclick="openServiceModal(1)" class="w-full py-3 px-4 rounded-xl bg-slate-100 group-hover:bg-navy-900 text-navy-900 group-hover:text-cyan-400 font-heading font-bold text-xs uppercase tracking-wider transition flex items-center justify-between">
+                        <span>View Technical BOQ Scope</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </button>
+                </div>
+
+                <!-- Service 03 -->
+                <div class="service-card bg-white rounded-2xl p-7 border border-slate-200/90 shadow-sm flex flex-col justify-between relative overflow-hidden group">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="font-heading font-extrabold text-4xl text-slate-200 group-hover:text-emerald-500 transition-colors">03</span>
+                            <div class="w-12 h-12 rounded-xl bg-navy-900 text-emerald-400 flex items-center justify-center shadow-md">
+                                <i class="fa-solid fa-file-signature text-xl"></i>
+                            </div>
+                        </div>
+                        <h3 class="font-heading font-bold text-xl text-navy-900 mb-3 group-hover:text-emerald-600 transition-colors">
+                            State DISCOM Liaisoning & CEIG Approvals
+                        </h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-5">
+                            Dedicated EV tariff HT/LT load sanctioning, feasibility clearances & <strong>CEIG electrical safety approvals</strong> across UPPCL, DHBVN/UHBVN, JVVNL, MPPKVVCL, PSPCL, BESCOM, DGVCL, TANGEDCO & KSEB.
+                        </p>
+                        <ul class="space-y-2 text-xs text-slate-600 mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> State EV Tariff HT/LT connection & demand note</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Chief Electrical Inspector (CEIG) drawing & safety nod</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> HT TOD meter sealing & feeder energization</li>
+                        </ul>
+                    </div>
+                    <button onclick="openServiceModal(2)" class="w-full py-3 px-4 rounded-xl bg-slate-100 group-hover:bg-navy-900 text-navy-900 group-hover:text-emerald-400 font-heading font-bold text-xs uppercase tracking-wider transition flex items-center justify-between">
+                        <span>View Technical BOQ Scope</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </button>
+                </div>
+
+                <!-- Service 04 -->
+                <div class="service-card bg-white rounded-2xl p-7 border border-slate-200/90 shadow-sm flex flex-col justify-between relative overflow-hidden group">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="font-heading font-extrabold text-4xl text-slate-200 group-hover:text-cyan-500 transition-colors">04</span>
+                            <div class="w-12 h-12 rounded-xl bg-navy-900 text-cyan-400 flex items-center justify-center shadow-md">
+                                <i class="fa-solid fa-tower-cell text-xl"></i>
+                            </div>
+                        </div>
+                        <h3 class="font-heading font-bold text-xl text-navy-900 mb-3 group-hover:text-cyan-600 transition-colors">
+                            Telecom Passive Infrastructure & OFC
+                        </h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-5">
+                            Turnkey <strong>telecom tower civil & electrical works, Optical Fiber Cable (OFC) rollouts,</strong> utility power plants, and 24/7 managed Operation & Maintenance (O&M) for maximum network uptime.
+                        </p>
+                        <ul class="space-y-2 text-xs text-slate-600 mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-500"></i> GBT/RTT telecom tower civil & EB electrical works</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-500"></i> Trenching, HDD ducting, OFC blowing & splicing</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-500"></i> 24/7 preventive & corrective O&M field support</li>
+                        </ul>
+                    </div>
+                    <button onclick="openServiceModal(3)" class="w-full py-3 px-4 rounded-xl bg-slate-100 group-hover:bg-navy-900 text-navy-900 group-hover:text-cyan-400 font-heading font-bold text-xs uppercase tracking-wider transition flex items-center justify-between">
+                        <span>View Technical BOQ Scope</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </button>
+                </div>
+
+                <!-- Service 05 -->
+                <div class="service-card bg-white rounded-2xl p-7 border border-slate-200/90 shadow-sm flex flex-col justify-between relative overflow-hidden group">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="font-heading font-extrabold text-4xl text-slate-200 group-hover:text-emerald-500 transition-colors">05</span>
+                            <div class="w-12 h-12 rounded-xl bg-navy-900 text-emerald-400 flex items-center justify-center shadow-md">
+                                <i class="fa-solid fa-solar-panel text-xl"></i>
+                            </div>
+                        </div>
+                        <h3 class="font-heading font-bold text-xl text-navy-900 mb-3 group-hover:text-emerald-600 transition-colors">
+                            Solar Carports & Hybrid Energy Projects
+                        </h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-5">
+                            Design and EPC of <strong>Solar EV Carports, commercial rooftop solar plants, and hybrid grid-tied energy systems</strong> to power green EV charging hubs and reduce daytime tariff costs.
+                        </p>
+                        <ul class="space-y-2 text-xs text-slate-600 mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Elevated waterproof solar carport structures for EV bays</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Bi-facial solar modules, string inverters & net metering</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Hybrid integration with 11kV substation & LT panels</li>
+                        </ul>
+                    </div>
+                    <button onclick="openServiceModal(4)" class="w-full py-3 px-4 rounded-xl bg-slate-100 group-hover:bg-navy-900 text-navy-900 group-hover:text-emerald-400 font-heading font-bold text-xs uppercase tracking-wider transition flex items-center justify-between">
+                        <span>View Technical BOQ Scope</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </button>
+                </div>
+
+                <!-- Card 06: AI Engineer & Custom Turnkey BOQ CTA Card -->
+                <div class="rounded-2xl p-7 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-950 text-white border border-slate-800 shadow-xl flex flex-col justify-between relative overflow-hidden">
+                    <div class="absolute -right-8 -top-8 w-36 h-36 rounded-full bg-emerald-500/15 blur-2xl"></div>
+                    <div>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold uppercase tracking-wider mb-5">
+                            <i class="fa-solid fa-robot"></i> Live AI EPC Consultant
+                        </span>
+                        <h3 class="font-heading font-bold text-2xl text-white mb-3">
+                            Confused About Transformer kVA, Cable Size or DISCOM Rules?
+                        </h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            Chat live with our <strong>GRKN AI EPC Engineer</strong> in Hindi, Hinglish, or English to get instant BOQ guidance, 11kV HT specs, or charger comparisons.
+                        </p>
+                    </div>
+                    <div class="space-y-3">
+                        <button type="button" onclick="toggleAIChat(true)" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-navy-950 font-heading font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 glow-emerald">
+                            <i class="fa-solid fa-comments"></i>
+                            <span>Ask GRKN AI Engineer Now</span>
+                        </button>
+                        <a href="#estimator" class="w-full py-3.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-heading font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-calculator text-cyan-400"></i>
+                            <span>Open HT Load & BOQ Estimator</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 4. SMART EV SITE & 11kV HT LOAD ESTIMATOR ==================== -->
+    <section id="estimator" class="py-20 lg:py-24 bg-dark-grid text-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-bold uppercase tracking-wider mb-3">
+                    <i class="fa-solid fa-microchip"></i> Interactive EPC Engineering Tool
+                </span>
+                <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-white">
+                    Smart EV Site & 11kV HT Substation Load / BOQ Estimator
+                </h2>
+                <p class="text-slate-300 mt-3 text-base">
+                    Choose your Charger Capacity (30kW–300kW), Quantity, and Site Connection Type to calculate Total Load, Recommended 11kV Transformer, Switchgear (GOS, VCB/RMU, HT TOD Meter), Cabling, Earthing & Execution Timeline.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                
+                <!-- Left Column: Interactive Controls -->
+                <div class="lg:col-span-5 bg-slate-900/90 border border-slate-700/80 rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-xl">
+                    <div class="space-y-6">
+                        <!-- Step 1: Select Charger Capacity -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-emerald-400 mb-3">
+                                1. Select DC Fast Charger Rating (kW)
+                            </label>
+                            <div class="grid grid-cols-3 gap-2.5" id="estCapacityBtns">
+                                <button type="button" onclick="setEstimatorCharger(30)" data-kw="30" class="est-kw-btn py-3 px-3 rounded-xl border border-slate-700 bg-slate-800/70 text-slate-200 font-heading font-bold text-sm hover:border-emerald-400 transition">30 kW</button>
+                                <button type="button" onclick="setEstimatorCharger(60)" data-kw="60" class="est-kw-btn py-3 px-3 rounded-xl border border-slate-700 bg-slate-800/70 text-slate-200 font-heading font-bold text-sm hover:border-emerald-400 transition">60 kW</button>
+                                <button type="button" onclick="setEstimatorCharger(120)" data-kw="120" class="est-kw-btn py-3 px-3 rounded-xl border border-emerald-500 bg-emerald-500/20 text-emerald-300 font-heading font-bold text-sm transition">120 kW</button>
+                                <button type="button" onclick="setEstimatorCharger(180)" data-kw="180" class="est-kw-btn py-3 px-3 rounded-xl border border-slate-700 bg-slate-800/70 text-slate-200 font-heading font-bold text-sm hover:border-emerald-400 transition">180 kW</button>
+                                <button type="button" onclick="setEstimatorCharger(240)" data-kw="240" class="est-kw-btn py-3 px-3 rounded-xl border border-slate-700 bg-slate-800/70 text-slate-200 font-heading font-bold text-sm hover:border-emerald-400 transition">240 kW</button>
+                                <button type="button" onclick="setEstimatorCharger(300)" data-kw="300" class="est-kw-btn py-3 px-3 rounded-xl border border-slate-700 bg-slate-800/70 text-slate-200 font-heading font-bold text-sm hover:border-emerald-400 transition">300 kW</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Number of Chargers Slider -->
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <label for="estChargerCount" class="text-xs font-bold uppercase tracking-wider text-cyan-400">
+                                    2. Quantity of Chargers on Site
+                                </label>
+                                <span id="estCountDisplay" class="px-3 py-1 rounded-lg bg-cyan-500/20 border border-cyan-500/40 font-heading font-extrabold text-base text-cyan-300">
+                                    2 Chargers
+                                </span>
+                            </div>
+                            <input id="estChargerCount" type="range" min="1" max="10" value="2" oninput="updateEstimatorCount(this.value)" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-500 my-2">
+                            <div class="flex justify-between text-[11px] text-slate-400 font-mono">
+                                <span>1 Unit</span>
+                                <span>3 Units</span>
+                                <span>5 Units</span>
+                                <span>8 Units</span>
+                                <span>10 Units</span>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Site Connection Type (LT vs 11kV HT Substation) -->
+                        <div>
+                            <label for="estConnType" class="block text-xs font-bold uppercase tracking-wider text-emerald-300 mb-2">
+                                3. Site Grid Connection Type (LT vs 11kV HT)
+                            </label>
+                            <select id="estConnType" onchange="calculateHTEstimator()" class="w-full rounded-xl bg-slate-800 border border-slate-700 text-white px-4 py-3 text-sm focus:outline-none focus:border-emerald-400">
+                                <option value="11kV HT Dedicated Substation (Recommended)">11kV HT Dedicated Substation (Transformer + VCB/RMU + TOD)</option>
+                                <option value="LT 415V Commercial Feeder (Up to 100kW Load)">LT 415V 3-Phase Commercial Connection (For single 30kW–60kW)</option>
+                                <option value="11kV HT Substation + Solar Carport Hybrid">11kV HT Substation + Solar Carport Hybrid Integration</option>
+                            </select>
+                        </div>
+
+                        <!-- Step 4: Site Deployment Category -->
+                        <div>
+                            <label for="estSiteType" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                                4. Site Deployment Category
+                            </label>
+                            <select id="estSiteType" onchange="calculateHTEstimator()" class="w-full rounded-xl bg-slate-800 border border-slate-700 text-white px-4 py-3 text-sm focus:outline-none focus:border-emerald-400">
+                                <option value="Highway Midway / Fuel Retail">Highway Midway / Wayside Amenity</option>
+                                <option value="Commercial Hub / Mall">Urban Commercial Hub / Mall Parking</option>
+                                <option value="Electric Bus / Fleet Depot">Heavy Electric Bus / Logistics Fleet Depot</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-800 text-xs text-slate-400 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-info text-emerald-400"></i>
+                        <span>Includes 0.92 Power Factor & 15% continuous loading margin per CEA & State DISCOM standards.</span>
+                    </div>
+                </div>
+
+                <!-- Right Column: Dynamic Engineering Output & SLD -->
+                <div class="lg:col-span-7 bg-slate-900/95 border border-emerald-500/30 rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden">
+                    <div>
+                        <div class="flex flex-wrap items-center justify-between gap-2 pb-5 mb-6 border-b border-slate-800">
+                            <div>
+                                <span class="text-xs font-mono uppercase tracking-wider text-emerald-400">Recommended Turnkey EPC Specification</span>
+                                <h3 id="estSummaryTitle" class="font-heading font-bold text-xl sm:text-2xl text-white mt-0.5">
+                                    2 × 120kW DC Chargers (240 kW Total Load)
+                                </h3>
+                            </div>
+                            <span id="estGridBadge" class="px-3 py-1.5 rounded-lg bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 font-mono text-xs font-bold">
+                                11kV HT Dedicated Substation
+                            </span>
+                        </div>
+
+                        <!-- Key Output Metrics Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
+                            <!-- Metric 1 -->
+                            <div class="p-4 rounded-xl bg-navy-950 border border-slate-800">
+                                <span class="text-xs text-slate-400 block">Total Connected Power Load</span>
+                                <div class="flex items-baseline gap-2 mt-1">
+                                    <span id="outTotalKW" class="font-heading font-extrabold text-2xl sm:text-3xl text-white">240 kW</span>
+                                    <span id="outTotalKVA" class="text-xs font-mono text-cyan-400">(~300 kVA Demand)</span>
+                                </div>
+                            </div>
+
+                            <!-- Metric 2 -->
+                            <div class="p-4 rounded-xl bg-navy-950 border border-emerald-500/40">
+                                <span class="text-xs text-emerald-300 block">Recommended 11kV HT Transformer</span>
+                                <div class="flex items-baseline gap-2 mt-1">
+                                    <span id="outTrafoRating" class="font-heading font-extrabold text-2xl sm:text-3xl text-emerald-400">315 kVA</span>
+                                    <span class="text-xs font-mono text-slate-400">11kV / 0.433kV</span>
+                                </div>
+                            </div>
+
+                            <!-- Metric 3 -->
+                            <div class="p-4 rounded-xl bg-navy-950 border border-slate-800">
+                                <span class="text-xs text-slate-400 block">HT Switchgear & Metering Package</span>
+                                <p id="outSwitchgear" class="font-heading font-bold text-sm text-cyan-300 mt-1.5">
+                                    DP Structure (GOS + LA + DO) + HT TOD Meter + 11kV VCB / RMU Panel
+                                </p>
+                            </div>
+
+                            <!-- Metric 4 -->
+                            <div class="p-4 rounded-xl bg-navy-950 border border-slate-800">
+                                <span class="text-xs text-slate-400 block">Armoured Cabling & Civil Plinth Scope</span>
+                                <p id="outCablingCivil" class="font-heading font-bold text-sm text-slate-200 mt-1.5">
+                                    2 Runs × 3.5C × 240 sq.mm Al XLPE + 2 RCC Charger Plinths
+                                </p>
+                            </div>
+
+                            <!-- Metric 5: Earthing Pits -->
+                            <div class="p-3.5 rounded-xl bg-navy-950 border border-slate-800 flex items-center justify-between">
+                                <div>
+                                    <span class="text-[11px] text-slate-400 block">Chemical Earthing Network</span>
+                                    <span id="outEarthingPits" class="font-heading font-bold text-sm text-emerald-300">6 Maintenance-Free Earth Pits (&lt;1Ω)</span>
+                                </div>
+                                <i class="fa-solid fa-shield-halved text-emerald-400 text-lg"></i>
+                            </div>
+
+                            <!-- Metric 6: Estimated Timeline -->
+                            <div class="p-3.5 rounded-xl bg-navy-950 border border-slate-800 flex items-center justify-between">
+                                <div>
+                                    <span class="text-[11px] text-slate-400 block">Estimated Turnkey Execution Timeline</span>
+                                    <span id="outTimeline" class="font-heading font-bold text-sm text-cyan-300">3 to 4 Weeks (Including DISCOM/CEIG)</span>
+                                </div>
+                                <i class="fa-regular fa-calendar-check text-cyan-400 text-lg"></i>
+                            </div>
+                        </div>
+
+                        <!-- Visual Single-Line Flow Bar -->
+                        <div class="p-4 rounded-xl bg-slate-800/50 border border-slate-700/70 mb-6">
+                            <div class="text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-2.5">
+                                Turnkey Execution Chain (Included in GRKN Scope)
+                            </div>
+                            <div class="flex flex-wrap items-center gap-2 text-xs">
+                                <span class="px-2.5 py-1 rounded bg-navy-950 border border-slate-700 text-slate-200">1. DISCOM Load Sanction</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] text-emerald-400"></i>
+                                <span class="px-2.5 py-1 rounded bg-navy-950 border border-slate-700 text-slate-200">2. 11kV GOS & TOD Metering</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] text-emerald-400"></i>
+                                <span class="px-2.5 py-1 rounded bg-navy-950 border border-slate-700 text-emerald-300 font-semibold" id="sldTrafoStep">3. 315 kVA Substation</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] text-emerald-400"></i>
+                                <span class="px-2.5 py-1 rounded bg-navy-950 border border-slate-700 text-cyan-300 font-semibold">4. Plinth, Cabling & Commissioning</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dual Action Buttons: Ask AI Engineer + Send to Quote Form -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                        <button type="button" onclick="askAIAboutEstimatorConfig()" class="w-full py-4 px-5 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-emerald-500/40 font-heading font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-robot text-cyan-400 text-base"></i>
+                            <span>Ask AI Engineer About This Config</span>
+                        </button>
+                        <button type="button" onclick="sendEstimatorToQuote()" class="w-full py-4 px-5 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-navy-950 font-heading font-extrabold text-xs sm:text-sm glow-emerald transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-file-invoice"></i>
+                            <span>Send Configuration to Quote Form</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 5. WORKING PROCESS (HOW WE DELIVER) ==================== -->
+    <section id="process" class="py-20 bg-white border-b border-slate-200/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-3">
+                    <i class="fa-solid fa-diagram-project"></i> Working Process
+                </span>
+                <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-navy-900">
+                    How We Deliver Turnkey EV & 11kV Projects
+                </h2>
+                <p class="text-slate-600 mt-3 text-base">
+                    Structured 4-stage engineering execution from initial DISCOM load feasibility to final CEIG safety clearance and charger handover.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/90 relative">
+                    <span class="font-heading font-extrabold text-3xl text-emerald-500/30 block mb-3">01</span>
+                    <h3 class="font-heading font-bold text-lg text-navy-900 mb-2">Site Survey & DISCOM Feasibility</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        Joint site inspection, 11kV feeder distance measurement, soil earthing check, and filing EV Tariff load application with State DISCOM.
+                    </p>
+                </div>
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/90 relative">
+                    <span class="font-heading font-extrabold text-3xl text-cyan-500/30 block mb-3">02</span>
+                    <h3 class="font-heading font-bold text-lg text-navy-900 mb-2">Civil Plinth & Canopy Fabrication</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        M25 grade flood-safe RCC charger foundations, transformer plinths, HDD/trenching conduits, canopy erection, and crash bollards.
+                    </p>
+                </div>
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/90 relative">
+                    <span class="font-heading font-extrabold text-3xl text-emerald-500/30 block mb-3">03</span>
+                    <h3 class="font-heading font-bold text-lg text-navy-900 mb-2">11kV Substation & XLPE Cabling</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        Installation of DP structure (GOS, LA, DO), HT TOD Meter, 11kV VCB/RMU, Transformer, LT Feeder Pillar, and armoured cables.
+                    </p>
+                </div>
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/90 relative">
+                    <span class="font-heading font-extrabold text-3xl text-cyan-500/30 block mb-3">04</span>
+                    <h3 class="font-heading font-bold text-lg text-navy-900 mb-2">CEIG Nod, Commissioning & O&M</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        CEIG safety clearance, feeder energization, 30kW–300kW DC charger OCPP live load testing, and 24/7 preventive O&M support.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 6. PAN-INDIA EXECUTION FOOTPRINT ==================== -->
+    <section id="footprint" class="py-20 bg-slate-50 border-b border-slate-200/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-10 gap-6">
+                <div>
+                    <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-100 text-cyan-800 text-xs font-bold uppercase tracking-wider mb-3">
+                        <i class="fa-solid fa-map-location-dot"></i> Pan-India Execution Footprint
+                    </span>
+                    <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-navy-900">
+                        Active Turnkey Operations Across 9+ States
+                    </h2>
+                    <p class="text-slate-600 mt-2 text-sm sm:text-base max-w-2xl">
+                        Anchored by our headquarters in <strong>Bhiwadi (Rajasthan)</strong> and regional hub in <strong>Indore (Madhya Pradesh)</strong>, with active field teams across North, Central, West, and South India.
+                    </p>
+                </div>
+
+                <!-- Region Filter Tabs -->
+                <div class="flex flex-wrap gap-2">
+                    <button type="button" id="fpTab-all" onclick="filterFootprint('all')" class="fp-tab px-4 py-2.5 rounded-xl text-xs font-heading font-bold uppercase tracking-wider bg-navy-900 text-emerald-400 shadow-sm transition">All Regions (9)</button>
+                    <button type="button" id="fpTab-north-central" onclick="filterFootprint('north-central')" class="fp-tab px-4 py-2.5 rounded-xl text-xs font-heading font-bold uppercase tracking-wider bg-white text-slate-700 hover:bg-slate-200 border border-slate-200 transition">North & Central (5)</button>
+                    <button type="button" id="fpTab-west" onclick="filterFootprint('west')" class="fp-tab px-4 py-2.5 rounded-xl text-xs font-heading font-bold uppercase tracking-wider bg-white text-slate-700 hover:bg-slate-200 border border-slate-200 transition">West India (1)</button>
+                    <button type="button" id="fpTab-south" onclick="filterFootprint('south')" class="fp-tab px-4 py-2.5 rounded-xl text-xs font-heading font-bold uppercase tracking-wider bg-white text-slate-700 hover:bg-slate-200 border border-slate-200 transition">South India (3)</button>
+                </div>
+            </div>
+
+            <!-- Dynamic State Footprint Grid -->
+            <div id="footprintGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Populated dynamically via filterFootprint() -->
+            </div>
+
+            <!-- Client Testimonials Banner -->
+            <div class="mt-14 rounded-3xl bg-navy-900 text-white p-7 sm:p-10 border border-slate-800 shadow-xl relative overflow-hidden">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+                    <div class="lg:max-w-3xl space-y-4">
+                        <div class="flex items-center gap-3">
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold uppercase tracking-wider">Client Success Stories</span>
+                            <span id="testTag" class="text-xs font-mono text-cyan-400">240kW Highway Hub + 11kV Substation</span>
+                        </div>
+                        <p id="testQuote" class="font-heading text-base sm:text-xl text-slate-100 leading-relaxed italic">
+                            "GRKN EV Infrastructure handled our entire 240kW dual-gun highway charging hub from 11kV HT transformer and VCB installation to DISCOM TOD metering and civil foundation works. Gajender Ji’s 15+ years of ground experience ensured energization ahead of schedule."
+                        </p>
+                        <div>
+                            <div id="testAuthor" class="font-heading font-bold text-sm text-emerald-400">VP – Infrastructure & Rollout</div>
+                            <div id="testCompany" class="text-xs text-slate-400">Leading National Charge Point Operator (CPO), Delhi NCR & Rajasthan Corridor</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 shrink-0">
+                        <button type="button" onclick="prevTestimonial()" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-emerald-500 hover:text-navy-950 text-white flex items-center justify-center transition" aria-label="Previous Testimonial">
+                            <i class="fa-solid fa-arrow-left text-xs"></i>
+                        </button>
+                        <span id="testimonialCounter" class="font-mono text-xs text-slate-400 px-2">01 / 03</span>
+                        <button type="button" onclick="nextTestimonial()" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-emerald-500 hover:text-navy-950 text-white flex items-center justify-center transition" aria-label="Next Testimonial">
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 7. TECHNICAL INSIGHTS & BLOGS ==================== -->
+    <section id="insights" class="py-20 bg-white border-b border-slate-200/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-3">
+                    <i class="fa-solid fa-book-open-reader"></i> Engineering Insights & Guides
+                </span>
+                <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-navy-900">
+                    Latest Insights From Our High-Voltage & EV Experts
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+                <!-- Blog Card 1 -->
+                <article class="rounded-2xl bg-slate-50 border border-slate-200/90 overflow-hidden shadow-sm hover:shadow-xl transition flex flex-col justify-between group">
+                    <div>
+                        <div class="h-44 bg-navy-900 p-6 flex flex-col justify-between relative overflow-hidden">
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold w-fit">11kV Substation Guide</span>
+                            <div class="text-white font-heading font-bold text-lg">11kV Transformers, RMU, VCB & GOS Selection</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-heading font-bold text-lg text-navy-900 mb-2">Complete Guide to 11kV HT Substation Setup for Ultra-Fast EV Hubs</h3>
+                            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                                How to size 11kV/433V transformers, Vacuum Circuit Breakers (VCB), Ring Main Units (RMU), and GOS protection for 120kW–300kW hubs.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6">
+                        <button type="button" onclick="openBlogModal(0)" class="text-xs font-heading font-bold text-emerald-700 hover:text-emerald-600 flex items-center gap-1.5">
+                            <span>Read Full Engineering Guide</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Blog Card 2 -->
+                <article class="rounded-2xl bg-slate-50 border border-slate-200/90 overflow-hidden shadow-sm hover:shadow-xl transition flex flex-col justify-between group">
+                    <div>
+                        <div class="h-44 bg-navy-900 p-6 flex flex-col justify-between relative overflow-hidden">
+                            <span class="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-bold w-fit">DISCOM & Regulatory</span>
+                            <div class="text-white font-heading font-bold text-lg">State EV Tariffs, HT TOD Metering & CEIG Nod</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-heading font-bold text-lg text-navy-900 mb-2">Navigating State DISCOM Norms & HT TOD Metering in India</h3>
+                            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                                Step-by-step approval workflow across JVVNL, DHBVN, MPPKVVCL, UPPCL, PSPCL, DGVCL, BESCOM, TANGEDCO & KSEB.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6">
+                        <button type="button" onclick="openBlogModal(1)" class="text-xs font-heading font-bold text-cyan-700 hover:text-cyan-600 flex items-center gap-1.5">
+                            <span>Read Full Engineering Guide</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Blog Card 3 -->
+                <article class="rounded-2xl bg-slate-50 border border-slate-200/90 overflow-hidden shadow-sm hover:shadow-xl transition flex flex-col justify-between group">
+                    <div>
+                        <div class="h-44 bg-navy-900 p-6 flex flex-col justify-between relative overflow-hidden">
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold w-fit">Civil & Cabling</span>
+                            <div class="text-white font-heading font-bold text-lg">M25 RCC Plinths & XLPE Armoured Cable Sizing</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-heading font-bold text-lg text-navy-900 mb-2">Why Civil Plinth Precision & Armoured Cabling Matter in 240kW+ Chargers</h3>
+                            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                                Preventing voltage drop and thermal derating using parallel 3.5C × 300 sq.mm XLPE runs and flood-safe civil foundations.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6">
+                        <button type="button" onclick="openBlogModal(2)" class="text-xs font-heading font-bold text-emerald-700 hover:text-emerald-600 flex items-center gap-1.5">
+                            <span>Read Full Engineering Guide</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 8. CONTACT US & TURNKEY EPC QUOTE FORM ==================== -->
+    <section id="contact" class="py-20 lg:py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+                
+                <!-- Left Column: Direct Office & Leadership Contact Info -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div>
+                        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-3">
+                            <i class="fa-solid fa-headset"></i> Quick Contact & Offices
+                        </span>
+                        <h2 class="font-heading font-extrabold text-3xl text-navy-900">
+                            Book A Site Survey Or Request Turnkey BOQ Quote
+                        </h2>
+                        <p class="text-slate-600 text-sm mt-2 leading-relaxed">
+                            Connect directly with our engineering team led by <strong>Gajender Singh</strong> for 30kW–300kW EV charging stations, 11kV HT substation works, and DISCOM liaisoning.
+                        </p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+                            <div class="w-11 h-11 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-location-dot text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-heading font-bold text-sm text-navy-900">Execution Headquarters & Regional Hub</h4>
+                                <p id="contactAddressPrimary" class="text-xs text-slate-600 mt-1">Registered Office: Bhiwadi, District Alwar/Khairthal-Tijara, Rajasthan</p>
+                                <p id="contactAddressSecondary" class="text-xs text-slate-600 mt-1">Central India Operations Hub: Indore, Madhya Pradesh</p>
+                            </div>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+                            <div class="w-11 h-11 rounded-xl bg-cyan-500/10 text-cyan-600 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-phone-volume text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-heading font-bold text-sm text-navy-900">Direct Engineering Helpline & Email</h4>
+                                <p id="contactPhoneDisplay" class="text-sm font-bold text-emerald-700 mt-1">+91-XXXXXXXXXX (Click 'Edit Contact Info' at top to update)</p>
+                                <div class="flex flex-wrap items-center gap-2 mt-1">
+                                    <a href="mailto:kanishyadav0001@gmail.com" id="contactEmailDisplay" class="text-xs font-semibold text-cyan-700 hover:text-emerald-600 underline transition">kanishyadav0001@gmail.com</a>
+                                    <button type="button" onclick="copyEmailAddress()" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-medium transition" title="Copy Email Address">
+                                        <i class="fa-regular fa-copy mr-1"></i>Copy Email
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive Quote Request Form -->
+                <div class="lg:col-span-7 bg-white rounded-3xl p-7 sm:p-9 border border-slate-200 shadow-xl">
+                    <h3 class="font-heading font-extrabold text-2xl text-navy-900 mb-6">Request A Turnkey EPC Quote</h3>
+
+                    <form onsubmit="handleQuoteSubmit(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="qName" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Your Name *</label>
+                                <input type="text" id="qName" required placeholder="e.g. Rajesh Sharma" class="w-full rounded-xl bg-slate-50 border border-slate-300 px-4 py-3 text-sm text-navy-900 focus:outline-none focus:border-emerald-500 focus:bg-white transition">
+                            </div>
+                            <div>
+                                <label for="qCompany" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Company / CPO / Organization *</label>
+                                <input type="text" id="qCompany" required placeholder="e.g. ChargeGrid / Highway Plaza" class="w-full rounded-xl bg-slate-50 border border-slate-300 px-4 py-3 text-sm text-navy-900 focus:outline-none focus:border-emerald-500 focus:bg-white transition">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="qPhone" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Phone / WhatsApp Number *</label>
+                                <input type="tel" id="qPhone" required placeholder="+91 98765 43210" class="w-full rounded-xl bg-slate-50 border border-slate-300 px-4 py-3 text-sm text-navy-900 focus:outline-none focus:border-emerald-500 focus:bg-white transition">
+                            </div>
+                            <div>
+                                <label for="qState" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Project State / Corridor *</label>
+                                <select id="qState" required class="w-full rounded-xl bg-slate-50 border border-slate-300 px-4 py-3 text-sm text-navy-900 focus:outline-none focus:border-emerald-500 focus:bg-white transition">
+                                    <option value="Rajasthan (Bhiwadi / Jaipur / Expressway)">Rajasthan (Bhiwadi / Jaipur / Expressway)</option>
+                                    <option value="Haryana & Delhi NCR (Gurugram / Sonipat / Rewari)">Haryana & Delhi NCR (Gurugram / Sonipat / Rewari)</option>
+                                    <option value="Madhya Pradesh (Indore / Bhopal / Pithampur)">Madhya Pradesh (Indore / Bhopal / Pithampur)</option>
+                                    <option value="Uttar Pradesh (Noida / Lucknow / Expressways)">Uttar Pradesh (Noida / Lucknow / Expressways)</option>
+                                    <option value="Punjab (Ludhiana / Jalandhar / Mohali)">Punjab (Ludhiana / Jalandhar / Mohali)</option>
+                                    <option value="Gujarat (Ahmedabad / Surat / Vadodara)">Gujarat (Ahmedabad / Surat / Vadodara)</option>
+                                    <option value="Karnataka (Bengaluru / Mysuru)">Karnataka (Bengaluru / Mysuru)</option>
+                                    <option value="Tamil Nadu (Chennai / Coimbatore / Hosur)">Tamil Nadu (Chennai / Coimbatore / Hosur)</option>
+                                    <option value="Kerala (Kochi / Trivandrum)">Kerala (Kochi / Trivandrum)</option>
+                                    <option value="Other Pan-India Location">Other Pan-India Location</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="qSubject" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Service Scope / Subject *</label>
+                            <select id="qSubject" required class="w-full rounded-xl bg-slate-50 border border-slate-300 px-4 py-3 text-sm text-navy-900 focus:outline-none focus:border-emerald-500 focus:bg-white transition">
+                                <option value="Turnkey EV Charging EPC (30kW–300kW)">01. EV Charging Turnkey EPC (30kW to 300kW DC)</option>
+                                <option value="11kV HT Transformer, RMU, VCB & GOS Work">02. 11kV HT Substation & Transmission Works (Trafo, RMU, VCB, GOS)</option>
+                                <option value="DISCOM Liaisoning, HT TOD Metering & CEIG">03. State DISCOM Liaisoning, HT TOD Metering & CEIG Approvals</option>
+                                <option value="Telecom Passive Infrastructure & O&M">04. Telecom Passive Infrastructure, OFC & 24/7 O&M</option>
+                                <option value="Solar Carports & Hybrid Energy Projects">05. Solar Carports & Hybrid Energy Projects</option>
+                                <option value="General Turnkey Inquiry">General Turnkey Partnership / Vendor Empanelment</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="qDetails" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Project Capacity, Site Location & BOQ Requirements *</label>
+                            <textarea id="qDetails" rows="4" required placeholder="Mention charger rating (30kW-300kW), number of guns/sites, 11kV transformer requirement, or city..." class="w-full rounded-xl bg-slate-50 border border-slate-300 px-4 py-3 text-sm text-navy-900 focus:outline-none focus:border-emerald-500 focus:bg-white transition"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-navy-950 font-heading font-extrabold text-sm uppercase tracking-wider glow-emerald transition flex items-center justify-center gap-2">
+                            <span>Submit Turnkey EPC Inquiry</span>
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+
+                    <!-- Confirmation Box -->
+                    <div id="quoteConfirmationBox" class="hidden mt-5 p-4 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs sm:text-sm space-y-3">
+                        <div class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-emerald-600 text-lg mt-0.5"></i>
+                            <p id="quoteConfirmSummary" class="leading-relaxed font-medium"></p>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2.5">
+                            <button type="button" onclick="copyInquiryToClipboard()" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-heading font-bold text-xs inline-flex items-center gap-1.5">
+                                <i class="fa-regular fa-copy"></i>
+                                <span>Copy Summary for WhatsApp</span>
+                            </button>
+                            <a id="directMailtoQuoteBtn" href="mailto:kanishyadav0001@gmail.com" class="px-4 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-emerald-400 font-heading font-bold text-xs inline-flex items-center gap-1.5">
+                                <i class="fa-regular fa-envelope"></i>
+                                <span>Send Directly via Email</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== COMPREHENSIVE FOOTER ==================== -->
+    <footer class="bg-navy-950 text-slate-400 pt-16 pb-10 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-slate-800/80">
+                <!-- Col 1: Brand Info -->
+                <div class="lg:col-span-4 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-500 p-0.5">
+                            <div class="w-full h-full bg-navy-950 rounded-[10px] flex items-center justify-center">
+                                <i class="fa-solid fa-bolt text-emerald-400"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="font-heading font-extrabold text-xl text-white">GRKN EV INFRASTRUCTURE</span>
+                            <p class="text-[11px] text-emerald-400">Powering Future Mobility & Grid Infrastructure</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        Premier Turnkey EPC contractor for 30kW–300kW Ultra-Fast EV Charging Stations, 11kV HT Substations (Transformers, RMU, VCB, GOS, HT TOD Metering), Civil Plinths, and Telecom Passive Infrastructure across India.
+                    </p>
+                    <div class="text-xs text-slate-300 space-y-1 pt-1">
+                        <div><strong class="text-emerald-400">Owner / Founder:</strong> Mrs. Renu</div>
+                        <div><strong class="text-cyan-400">Operational Leadership:</strong> Gajender Singh (15+ Yrs Experience)</div>
+                    </div>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div class="lg:col-span-2 space-y-3">
+                    <h4 class="font-heading font-bold text-white text-sm uppercase tracking-wider">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#home" class="hover:text-emerald-400 transition">Home</a></li>
+                        <li><a href="#about" class="hover:text-emerald-400 transition">Our Journey & Leadership</a></li>
+                        <li><a href="#services" class="hover:text-emerald-400 transition">Core EPC Services</a></li>
+                        <li><a href="#estimator" class="hover:text-cyan-400 transition">11kV HT Load Estimator</a></li>
+                        <li><a href="#process" class="hover:text-emerald-400 transition">Working Process</a></li>
+                        <li><a href="#footprint" class="hover:text-emerald-400 transition">Pan-India Footprint</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Core Technical Capabilities -->
+                <div class="lg:col-span-3 space-y-3">
+                    <h4 class="font-heading font-bold text-white text-sm uppercase tracking-wider">Technical Scope</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-emerald-400 text-xs"></i> 30kW to 300kW DC Fast Chargers</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-emerald-400 text-xs"></i> 11kV HT Transformers & RMU/VCB</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-emerald-400 text-xs"></i> GOS, LA, DO Fuse & HT TOD Meters</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-emerald-400 text-xs"></i> Civil Plinths & Armoured Cabling</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-emerald-400 text-xs"></i> State DISCOM & CEIG Clearances</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-emerald-400 text-xs"></i> Telecom Passive Infra & OFC O&M</li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Operational States -->
+                <div class="lg:col-span-3 space-y-3">
+                    <h4 class="font-heading font-bold text-white text-sm uppercase tracking-wider">Execution Hubs</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        <strong>Primary Offices:</strong> Bhiwadi (Rajasthan) & Indore (Madhya Pradesh)
+                    </p>
+                    <div class="flex flex-wrap gap-1.5 pt-1">
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-xs text-slate-300">Rajasthan</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-xs text-slate-300">Haryana / NCR</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-xs text-slate-300">Madhya Pradesh</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-xs text-slate-300">Uttar Pradesh</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-xs text-slate-300">Punjab</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-xs text-slate-300">Gujarat</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-xs text-slate-300">Karnataka</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-xs text-slate-300">Tamil Nadu</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-xs text-slate-300">Kerala</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+                <p>© 2026 GRKN EV Infrastructure. All Rights Reserved. Owned by Mrs. Renu | Led by Gajender Singh.</p>
+                <div class="flex items-center gap-4">
+                    <button onclick="openContactCustomizer()" class="text-emerald-400 hover:underline">Customize Contact Placeholders</button>
+                    <span>•</span>
+                    <a href="#home" class="hover:text-white transition">Back to Top <i class="fa-solid fa-arrow-up ml-1"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== MODAL 1: TECHNICAL SCOPE & BOQ MODAL (Services & Blogs) ==================== -->
+    <div id="universalModal" class="fixed inset-0 z-50 hidden bg-navy-950/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative my-8">
+            <div class="flex items-start justify-between gap-4 pb-4 border-b border-slate-200">
+                <div>
+                    <span id="modalBadge" class="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-1">Technical Scope</span>
+                    <h3 id="modalTitle" class="font-heading font-extrabold text-xl sm:text-2xl text-navy-900">Service Title</h3>
+                </div>
+                <button onclick="closeUniversalModal()" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div id="modalBody" class="py-5 text-sm text-slate-700 space-y-4 max-h-[65vh] overflow-y-auto pr-1">
+                <!-- Dynamic Modal Content -->
+            </div>
+            <div class="pt-4 border-t border-slate-200 flex flex-wrap items-center justify-end gap-3">
+                <button onclick="closeUniversalModal()" class="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-heading font-bold text-xs uppercase tracking-wider">Close</button>
+                <button id="modalCtaBtn" onclick="selectServiceFromModal()" class="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-navy-950 font-heading font-bold text-xs uppercase tracking-wider flex items-center gap-2">
+                    <span>Request BOQ Quote for This Scope</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL 2: QUICK CUSTOMIZE COMPANY DETAILS ==================== -->
+    <div id="customizerModal" class="fixed inset-0 z-50 hidden bg-navy-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-200">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Owner Quick Setup</span>
+                    <h3 class="font-heading font-extrabold text-xl text-navy-900">Update GRKN Contact Details Live</h3>
+                </div>
+                <button onclick="closeContactCustomizer()" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form onsubmit="saveCustomContactInfo(event)" class="space-y-4 py-4 text-sm">
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Official Phone / Mobile Number</label>
+                    <input type="text" id="custPhone" value="+91-XXXXXXXXXX" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-navy-900">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Official Email ID</label>
+                    <input type="email" id="custEmail" value="kanishyadav0001@gmail.com" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-navy-900">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Registered Office Address (Bhiwadi / Rajasthan)</label>
+                    <input type="text" id="custAddr1" value="Registered Office: Bhiwadi, District Alwar/Khairthal-Tijara, Rajasthan" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-navy-900">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Corporate Branch Address (Indore / MP)</label>
+                    <input type="text" id="custAddr2" value="Central India Operations Hub: Indore, Madhya Pradesh" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-navy-900">
+                </div>
+                <div class="pt-3 flex justify-end gap-2">
+                    <button type="button" onclick="closeContactCustomizer()" class="px-4 py-2.5 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs">Cancel</button>
+                    <button type="submit" class="px-5 py-2.5 rounded-xl bg-emerald-500 text-navy-950 font-heading font-bold text-xs">Apply Across Website</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL 3: GITHUB PRIVATE REPO & LIVE HOSTING GUIDE ==================== -->
+    <div id="deployGuideModal" class="fixed inset-0 z-50 hidden bg-navy-950/85 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-3xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative my-8">
+            <div class="flex items-start justify-between gap-4 pb-4 border-b border-slate-200">
+                <div>
+                    <span class="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-1">
+                        <i class="fa-brands fa-github mr-1"></i> Complete Owner Deployment Guide
+                    </span>
+                    <h3 class="font-heading font-extrabold text-xl sm:text-2xl text-navy-900">
+                        GitHub Private Repository Se Live Website Kaise Banayein?
+                    </h3>
+                </div>
+                <button onclick="closeDeployGuideModal()" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div class="py-5 text-xs sm:text-sm text-slate-700 space-y-4 max-h-[65vh] overflow-y-auto pr-2">
+                <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900">
+                    <strong>💡 Sabse Zaroori Baat (Private Repo Tip):</strong> GitHub ke Free account mein <em>GitHub Pages</em> sirf Public repo par chalta hai. Lekin agar aap apni repository <strong>Private</strong> rakhna chahte hain, toh aap <strong>Vercel.com</strong> ya <strong>Netlify.com</strong> ko GitHub se connect karke <strong>100% FREE</strong> mein apni Private Repo ko publish kar sakte hain!
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
+                    <h4 class="font-heading font-bold text-navy-900 text-base">Step 1: Code Ko <code class="bg-slate-200 px-1.5 py-0.5 rounded text-emerald-700">index.html</code> File Mein Save Karein</h4>
+                    <p>1. Pehle website mein apna final Phone Number update kar lein.</p>
+                    <p>2. Is poore code ko copy karke apne computer/laptop par Notepad ya VS Code mein paste karein aur file ka naam bilkul <strong><code>index.html</code></strong> (small letters mein) rakh kar save karein.</p>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
+                    <h4 class="font-heading font-bold text-navy-900 text-base">Step 2: GitHub Par Private Repository Banayein</h4>
+                    <p>1. <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-emerald-600 font-bold underline">github.com</a> par login karein aur upar right side mein <strong>+ (Plus)</strong> icon dabayein &rarr; <strong>New repository</strong> par click karein.</p>
+                    <p>2. <strong>Repository name</strong> mein likhein: <code>grkn-ev-website</code></p>
+                    <p>3. Neeche <strong>Private</strong> option select karein aur <strong>Create repository</strong> button daba dein.</p>
+                    <p>4. Agle page par <strong>"uploading an existing file"</strong> link par click karein, apni <code>index.html</code> file drag & drop karein, aur neeche green <strong>Commit changes</strong> button daba dein.</p>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
+                    <h4 class="font-heading font-bold text-navy-900 text-base">Step 3: Private Repo Se Website Ko Live Publish Karein (Vercel - 100% Free)</h4>
+                    <p>1. <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" class="text-emerald-600 font-bold underline">vercel.com</a> (ya <a href="https://netlify.com" target="_blank" rel="noopener noreferrer" class="text-cyan-600 font-bold underline">netlify.com</a>) par jayein aur <strong>"Continue with GitHub"</strong> karke login karein.</p>
+                    <p>2. <strong>Add New &rarr; Project</strong> par click karein aur apni private repo <code>grkn-ev-website</code> ko select karke <strong>Import</strong> dabayein.</p>
+                    <p>3. Seedha <strong>Deploy</strong> button par click karein. Sirf 30 seconds mein aapki website live ho jayegi (jaise <code>https://grkn-ev-website.vercel.app</code>)!</p>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
+                    <h4 class="font-heading font-bold text-navy-900 text-base">Step 4: Apna Custom Domain (.com / .in) Kaise Jodein?</h4>
+                    <p>1. GoDaddy, Hostinger ya Namecheap se apna domain (jaise <code>grknevinfrastructure.com</code> ya <code>grknev.in</code>) khareedein.</p>
+                    <p>2. Vercel dashboard mein apne project ke <strong>Settings &rarr; Domains</strong> mein jaakar apna domain naam daal kar <strong>Add</strong> karein.</p>
+                    <p>3. Vercel aapko ek <strong>A Record</strong> (<code>76.76.21.21</code>) aur <strong>CNAME</strong> (<code>cname.vercel-dns.com</code>) dega—bas use apne GoDaddy/Hostinger ke DNS settings mein paste kar dein. 15 minute mein aapki website <strong>Free SSL (https://)</strong> ke saath aapke official domain par chalne lagegi!</p>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 space-y-1">
+                    <h4 class="font-heading font-bold text-sm">Step 5: Future Mein Website Update Kaise Hogi?</h4>
+                    <p>Jab bhi aapko website mein koi text, phone number ya naya project add karna ho, bas apne GitHub Private Repo mein jaakar <code>index.html</code> ke pencil (Edit) icon par click karein, change karein aur <strong>Commit changes</strong> dabayein—aapki live website 10 seconds mein <strong>automatically update</strong> ho jayegi!</p>
+                </div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-200 flex justify-end">
+                <button onclick="closeDeployGuideModal()" class="px-6 py-2.5 rounded-xl bg-navy-900 hover:bg-slate-800 text-emerald-400 font-heading font-bold text-xs uppercase tracking-wider">
+                    Got It, Close Guide
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TOAST NOTIFICATION ==================== -->
+    <div id="toastBanner" class="fixed bottom-5 left-5 z-50 hidden bg-navy-900 text-white border border-emerald-500/50 px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toastMessage" class="text-xs sm:text-sm font-medium">Action completed successfully!</span>
+    </div>
+
+    <!-- ==================== LIVE GEMINI AI AGENT ("GRKN AI EPC ENGINEER & CONSULTANT") ==================== -->
+    <!-- Floating Launcher Button -->
+    <div class="fixed bottom-5 right-5 z-50 flex flex-col items-end">
+        <!-- Floating Callout Pill -->
+        <div id="aiWelcomeBubble" class="mb-2.5 bg-navy-900/95 text-white border border-emerald-500/40 rounded-2xl px-4 py-2.5 shadow-xl flex items-center gap-2.5 text-xs max-w-xs backdrop-blur-md">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping shrink-0"></span>
+            <span><strong>Need EV / 11kV EPC Help?</strong> Ask our Live AI Engineer in Hindi or English!</span>
+            <button onclick="document.getElementById('aiWelcomeBubble').classList.add('hidden')" class="text-slate-400 hover:text-white ml-1" aria-label="Dismiss bubble">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <button id="aiLauncherBtn" onclick="toggleAIChat()" class="group relative flex items-center gap-3 bg-gradient-to-r from-emerald-500 via-emerald-400 to-cyan-400 text-navy-950 font-heading font-extrabold px-5 py-3.5 rounded-2xl shadow-2xl glow-emerald hover:scale-105 transition-all">
+            <span class="relative flex h-3 w-3">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-navy-950 opacity-60"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-navy-950"></span>
+            </span>
+            <i class="fa-solid fa-robot text-lg"></i>
+            <span class="text-sm tracking-tight">Ask GRKN AI Engineer</span>
+        </button>
+    </div>
+
+    <!-- Expandable AI Assistant Panel -->
+    <div id="aiChatPanel" class="fixed bottom-5 right-5 z-50 hidden w-[94vw] sm:w-[440px] md:w-[470px] max-h-[85vh] flex flex-col rounded-3xl bg-navy-950 text-white border border-emerald-500/40 shadow-2xl overflow-hidden">
+        <!-- AI Header -->
+        <div class="bg-gradient-to-r from-navy-900 via-slate-900 to-navy-900 px-5 py-4 border-b border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-500 p-0.5 shrink-0">
+                    <div class="w-full h-full bg-navy-950 rounded-[10px] flex items-center justify-center">
+                        <i class="fa-solid fa-robot text-emerald-400 text-base"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h3 class="font-heading font-extrabold text-sm sm:text-base text-white">GRKN AI EPC Consultant</h3>
+                        <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[10px] font-bold uppercase">Created by GRKN</span>
+                    </div>
+                    <p class="text-[11px] text-slate-400">30kW–300kW EV • 11kV HT Grid • DISCOM • Hindi / English</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-1.5">
+                <button type="button" onclick="resetAIChat()" title="Clear / Reset Conversation" class="w-8 h-8 rounded-lg bg-slate-800/90 hover:bg-slate-700 text-slate-300 hover:text-emerald-400 flex items-center justify-center text-xs transition">
+                    <i class="fa-solid fa-rotate-right"></i>
+                </button>
+                <button type="button" onclick="toggleAIChat(false)" title="Minimize Chat" class="w-8 h-8 rounded-lg bg-slate-800/90 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center text-sm transition">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Quick Question Chips Bar -->
+        <div class="bg-navy-900/90 px-4 py-2.5 border-b border-slate-800/90">
+            <div class="text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1.5 flex items-center justify-between">
+                <span>Quick Technical Questions (Click to Ask):</span>
+                <span class="text-emerald-400">Hindi / Hinglish / English</span>
+            </div>
+            <div class="flex gap-1.5 overflow-x-auto pb-1 no-scrollbar">
+                <button type="button" onclick="askQuickQuestion('120kW DC charger ke liye kitna Transformer aur kya BOQ lagega?')" class="shrink-0 px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-emerald-500/20 border border-slate-700 hover:border-emerald-500/40 text-[11px] text-emerald-300 font-medium transition">
+                    ⚡ 120kW Charger Transformer & BOQ?
+                </button>
+                <button type="button" onclick="askQuickQuestion('11kV HT connection aur DISCOM approval ka process kya hai?')" class="shrink-0 px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-cyan-500/20 border border-slate-700 hover:border-cyan-500/40 text-[11px] text-cyan-300 font-medium transition">
+                    📋 11kV HT & DISCOM Process?
+                </button>
+                <button type="button" onclick="askQuickQuestion('GRKN EV Infrastructure kahan-kahan service deti hai aur leadership kaun hai?')" class="shrink-0 px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-emerald-500/20 border border-slate-700 hover:border-emerald-500/40 text-[11px] text-slate-200 font-medium transition">
+                    📍 GRKN Locations & Leadership?
+                </button>
+                <button type="button" onclick="askQuickQuestion('30kW vs 60kW vs 180kW Highway Charger comparison bataiye')" class="shrink-0 px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-cyan-500/20 border border-slate-700 hover:border-cyan-500/40 text-[11px] text-cyan-300 font-medium transition">
+                    🔋 30kW vs 60kW vs 180kW Comparison
+                </button>
+            </div>
+        </div>
+
+        <!-- Chat Messages Container -->
+        <div id="aiMessagesList" class="ai-chat-scroll flex-1 p-4 space-y-3.5 overflow-y-auto max-h-[380px] sm:max-h-[410px] bg-navy-950">
+            <!-- Initial Greeting Message -->
+            <div class="flex items-start gap-2.5">
+                <div class="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5 text-xs">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl rounded-tl-sm p-3.5 text-xs sm:text-sm text-slate-200 leading-relaxed max-w-[88%] ai-markdown">
+                    <p><strong>Namaste! Welcome to GRKN EV Infrastructure.</strong> 🙏</p>
+                    <p>Main aapka <strong>Live AI EPC Engineer & Consultant</strong> hoon. Aap mujhse <strong>Hindi, Hinglish, ya English</strong> mein kuch bhi pooch sakte hain:</p>
+                    <ul>
+                        <li><strong>30kW se 300kW DC Fast Chargers</strong> ka civil plinth, canopy & cabling scope</li>
+                        <li><strong>11kV HT Substation</strong> (Transformer kVA, RMU, VCB Panel, GOS, HT TOD Meter)</li>
+                        <li><strong>State DISCOM Load Sanction & CEIG</strong> approvals (Rajasthan, Haryana/NCR, MP, UP, Punjab, Gujarat, Karnataka, TN, Kerala)</li>
+                    </ul>
+                    <p>Bataiye, aap kis location par aur kitne kW ka EV charging station ya 11kV project plan kar rahe hain?</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transfer Conversation Summary to Quote Form Bar -->
+        <div class="bg-slate-900/95 px-4 py-2 border-t border-slate-800 flex items-center justify-between gap-2">
+            <span class="text-[11px] text-slate-400 truncate">Ready for an official BOQ or Site Survey?</span>
+            <button type="button" onclick="transferAIChatToQuoteForm()" class="shrink-0 px-3 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-navy-950 border border-emerald-500/40 font-heading font-bold text-[11px] transition flex items-center gap-1.5">
+                <i class="fa-solid fa-file-export"></i>
+                <span>Send Project Summary to Quote Form</span>
+            </button>
+        </div>
+
+        <!-- User Input Form -->
+        <form onsubmit="handleAIChatSubmit(event)" class="p-3 bg-navy-900 border-t border-slate-800 flex items-center gap-2">
+            <input type="text" id="aiUserInput" placeholder="Ask in Hindi, Hinglish or English (e.g. 240kW charger BOQ)..." autocomplete="off" class="flex-1 rounded-xl bg-navy-950 border border-slate-700 px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none focus:border-emerald-400">
+            <button type="submit" id="aiSendBtn" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-navy-950 font-heading font-bold text-xs sm:text-sm transition flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </form>
+    </div>
+
+    <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+    <script>
+        // 1. HERO SLIDER DATA & CONTROLS
+        const heroSlides = [
+            {
+                tag: "Welcome to GRKN EV Infrastructure",
+                headline: 'Powering The Future Of <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Electric Mobility</span>',
+                subtext: "Turnkey EV Charging EPC from 30kW to 300kW Ultra-Fast CCS2 DC Chargers, M25 Civil Plinth Foundations, Weatherproof Canopies, Chemical Earthing & End-to-End Commissioning across India.",
+                pills: [
+                    '<i class="fa-solid fa-charging-station mr-1.5"></i>30kW – 300kW Ultra-Fast CCS2 DC',
+                    '<i class="fa-solid fa-trowel-bricks mr-1.5"></i>Civil Plinth Foundations & Canopy',
+                    '<i class="fa-solid fa-plug-circle-check mr-1.5"></i>Testing & Commissioning'
+                ]
+            },
+            {
+                tag: "High-Voltage Grid Engineering",
+                headline: 'Building Stronger Networks With <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">Smart 11kV HT Substations</span>',
+                subtext: "Complete 11kV HT Transformers, Ring Main Units (RMU), Vacuum Circuit Breaker (VCB) Panels, Gang Operated Switches (GOS), HT TOD Meters, LT Panels & Heavy-Gauge Copper/Aluminium Armoured Cables.",
+                pills: [
+                    '<i class="fa-solid fa-microchip mr-1.5"></i>11kV Transformers, RMU & VCB',
+                    '<i class="fa-solid fa-gauge-high mr-1.5"></i>GOS & HT TOD Metering',
+                    '<i class="fa-solid fa-bolt mr-1.5"></i>Cu/Al XLPE Armoured Cabling'
+                ]
+            },
+            {
+                tag: "15+ Years of Field Leadership",
+                headline: '15+ Years Leadership in <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Telecom, Solar & Power Infra</span>',
+                subtext: "Owned by Mrs. Renu and led operationally by Gajender Singh (15+ years industry experience). Reliable Turnkey Rollouts, State DISCOM Liaisoning, Optical Fiber Cable (OFC), Tower Infrastructure, Solar Carports & 24/7 O&M.",
+                pills: [
+                    '<i class="fa-solid fa-file-shield mr-1.5"></i>9+ State DISCOM & CEIG Approvals',
+                    '<i class="fa-solid fa-tower-cell mr-1.5"></i>Telecom OFC & Tower Infra',
+                    '<i class="fa-solid fa-solar-panel mr-1.5"></i>Solar Carports & Hybrid Energy'
+                ]
+            }
+        ];
+
+        let currentSlideIndex = 0;
+        let slideInterval = null;
+
+        function renderHeroSlide(index) {
+            const slide = heroSlides[index];
+            const container = document.getElementById('heroSlideContainer');
+            if (!slide || !container) return;
+            container.classList.remove('slide-fade');
+            void container.offsetWidth; // trigger reflow
+            container.classList.add('slide-fade');
+
+            const tagEl = document.getElementById('slideTag');
+            const headlineEl = document.getElementById('slideHeadline');
+            const subtextEl = document.getElementById('slideSubtext');
+            const pillsEl = document.getElementById('slidePills');
+            const counterEl = document.getElementById('slideCounter');
+
+            if (tagEl) tagEl.textContent = slide.tag;
+            if (headlineEl) headlineEl.innerHTML = slide.headline;
+            if (subtextEl) subtextEl.textContent = slide.subtext;
+
+            const pillsHtml = slide.pills.map((p, i) => {
+                const colorClass = i === 0 ? 'text-emerald-300' : (i === 1 ? 'text-cyan-300' : 'text-slate-200');
+                return `<span class="px-3 py-1.5 rounded-lg bg-slate-800/90 border border-slate-700 text-xs font-medium ${colorClass}">${p}</span>`;
+            }).join('');
+            if (pillsEl) pillsEl.innerHTML = pillsHtml;
+            if (counterEl) counterEl.textContent = `0${index + 1} / 03`;
+
+            [0, 1, 2].forEach(i => {
+                const dot = document.getElementById(`slideDot${i}`);
+                if (!dot) return;
+                if (i === index) {
+                    dot.className = "h-2.5 w-10 rounded-full bg-emerald-400 transition-all";
+                } else {
+                    dot.className = "h-2.5 w-3 rounded-full bg-slate-700 hover:bg-slate-500 transition-all";
+                }
+            });
+        }
+
+        function setHeroSlide(index) {
+            currentSlideIndex = index;
+            renderHeroSlide(currentSlideIndex);
+            resetSlideTimer();
+        }
+
+        function nextHeroSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % heroSlides.length;
+            renderHeroSlide(currentSlideIndex);
+            resetSlideTimer();
+        }
+
+        function prevHeroSlide() {
+            currentSlideIndex = (currentSlideIndex - 1 + heroSlides.length) % heroSlides.length;
+            renderHeroSlide(currentSlideIndex);
+            resetSlideTimer();
+        }
+
+        function resetSlideTimer() {
+            if (slideInterval) clearInterval(slideInterval);
+            slideInterval = setInterval(() => {
+                currentSlideIndex = (currentSlideIndex + 1) % heroSlides.length;
+                renderHeroSlide(currentSlideIndex);
+            }, 6500);
+        }
+
+        // Quick Hero Spec Switcher
+        function updateHeroQuickSpec(cap, trafo, cable, app) {
+            document.getElementById('heroQuickCapBadge').textContent = `${cap} Ultra-Fast DC`;
+            document.getElementById('hqTrafo').textContent = trafo;
+            document.getElementById('hqCable').textContent = cable;
+            document.getElementById('hqApp').textContent = app;
+
+            ['60kW', '120kW', '240kW', '300kW'].forEach(k => {
+                const btn = document.getElementById('hqBtn' + k.replace('kW', ''));
+                if (k === cap) {
+                    btn.className = "py-2 px-2 rounded-lg text-xs font-bold border border-emerald-500 bg-emerald-500/20 text-emerald-300 transition";
+                } else {
+                    btn.className = "py-2 px-2 rounded-lg text-xs font-bold border border-slate-700 bg-slate-800/70 text-slate-300 hover:border-emerald-400 transition";
+                }
+            });
+        }
+
+        // 2. SMART EV SITE & 11kV HT LOAD ESTIMATOR LOGIC
+        let estSelectedKW = 120;
+        let estChargerUnits = 2;
+
+        function setEstimatorCharger(kw) {
+            estSelectedKW = kw;
+            document.querySelectorAll('.est-kw-btn').forEach(btn => {
+                const btnKw = parseInt(btn.getAttribute('data-kw'), 10);
+                if (btnKw === kw) {
+                    btn.className = "est-kw-btn py-3 px-3 rounded-xl border border-emerald-500 bg-emerald-500/20 text-emerald-300 font-heading font-bold text-sm transition";
+                } else {
+                    btn.className = "est-kw-btn py-3 px-3 rounded-xl border border-slate-700 bg-slate-800/70 text-slate-200 font-heading font-bold text-sm hover:border-emerald-400 transition";
+                }
+            });
+            calculateHTEstimator();
+        }
+
+        function updateEstimatorCount(val) {
+            estChargerUnits = parseInt(val, 10);
+            document.getElementById('estCountDisplay').textContent = `${estChargerUnits} ${estChargerUnits === 1 ? 'Charger' : 'Chargers'}`;
+            calculateHTEstimator();
+        }
+
+        function calculateHTEstimator() {
+            const totalKW = estSelectedKW * estChargerUnits;
+            const connType = document.getElementById('estConnType').value;
+            const siteCategory = document.getElementById('estSiteType').value;
+
+            // Apparent power with 0.92 PF and 15% safety margin
+            const requiredKVA = Math.ceil((totalKW / 0.92) * 1.15);
+
+            // Standard Indian 11kV Distribution / Power Transformer Ratings (kVA)
+            const standardTrafos = [63, 100, 160, 200, 250, 315, 400, 500, 630, 800, 1000, 1250, 1600, 2000, 2500, 3150, 4000];
+            let recommendedTrafo = standardTrafos.find(t => t >= requiredKVA) || 4000;
+
+            let trafoDisplay = `${recommendedTrafo} kVA`;
+            let switchgearText = "";
+            let timelineText = "3 to 4 Weeks (Including DISCOM/CEIG)";
+
+            if (connType.includes("LT 415V") && totalKW <= 100) {
+                trafoDisplay = `LT Direct (${requiredKVA} kVA Load)`;
+                switchgearText = "3-Phase 415V CT-Operated LT TOD Meter + IP65 Outdoor MCCB Feeder Pillar + Type 1+2 SPD";
+                timelineText = "10 to 15 Days (Fast-Track LT Rollout)";
+            } else {
+                if (recommendedTrafo <= 160) {
+                    switchgearText = "11kV DP Structure (GOS + LA + DO Fuse) + HT TOD Metering Cubicle + LT ACB/MCCB Feeder Pillar";
+                    timelineText = "2.5 to 3.5 Weeks (Turnkey HT + Civil)";
+                } else if (recommendedTrafo <= 500) {
+                    switchgearText = "DP Structure (GOS + LA) + HT TOD Meter + 11kV Vacuum Circuit Breaker (VCB) Panel + Outdoor LT Panel";
+                    timelineText = "3 to 4.5 Weeks (Turnkey 11kV Substation)";
+                } else {
+                    switchgearText = "11kV 3-Way Ring Main Unit (RMU) + VCB Breaker + HT TOD Metering + Multi-Incomer LT ACB Panel";
+                    timelineText = "4 to 6 Weeks (Heavy Depot HT Hub)";
+                }
+                if (connType.includes("Solar Carport")) {
+                    switchgearText += " + Hybrid Solar Carport Bi-Directional Net Metering Panel";
+                }
+            }
+
+            let cableSpec = "";
+            if (estSelectedKW <= 60) {
+                cableSpec = `${estChargerUnits} Runs × 3.5C × 120/185 sq.mm Al XLPE Armoured`;
+            } else if (estSelectedKW <= 120) {
+                cableSpec = `${estChargerUnits} Runs × 3.5C × 240 sq.mm Al XLPE Armoured`;
+            } else if (estSelectedKW <= 180) {
+                cableSpec = `${estChargerUnits * 2} Runs × 3.5C × 240 sq.mm Al XLPE Armoured`;
+            } else {
+                cableSpec = `${estChargerUnits * 2} Runs × 3.5C × 300/400 sq.mm Al/Cu XLPE Armoured`;
+            }
+
+            const earthPits = Math.max(4, estChargerUnits * 2 + 2);
+
+            document.getElementById('estSummaryTitle').textContent = `${estChargerUnits} × ${estSelectedKW}kW DC Chargers (${totalKW} kW Total Load)`;
+            document.getElementById('estGridBadge').textContent = (connType.includes("LT 415V") && totalKW <= 100) ? "LT 415V Commercial Supply" : "11kV HT Dedicated Substation";
+            document.getElementById('outTotalKW').textContent = `${totalKW} kW`;
+            document.getElementById('outTotalKVA').textContent = `(~${requiredKVA} kVA Design Demand)`;
+            document.getElementById('outTrafoRating').textContent = trafoDisplay;
+            document.getElementById('outSwitchgear').textContent = switchgearText;
+            document.getElementById('outCablingCivil').textContent = `${cableSpec} + ${estChargerUnits} M25 RCC Charger Plinths (${siteCategory})`;
+            document.getElementById('outEarthingPits').textContent = `${earthPits} Chemical Earth Pits (< 1 Ohm Grid)`;
+            document.getElementById('outTimeline').textContent = timelineText;
+            document.getElementById('sldTrafoStep').textContent = `3. ${trafoDisplay} Substation`;
+        }
+
+        function askAIAboutEstimatorConfig() {
+            const totalKW = estSelectedKW * estChargerUnits;
+            const trafo = document.getElementById('outTrafoRating').textContent;
+            const connType = document.getElementById('estConnType').value;
+            const siteType = document.getElementById('estSiteType').value;
+            const prompt = `Main ${siteType} ke liye ${estChargerUnits} x ${estSelectedKW}kW DC Fast Chargers (${totalKW} kW total load, ${connType}, Recommended Transformer: ${trafo}) plan kar raha hoon. Iske liye complete turnkey BOQ, 11kV HT switchgear, cable size aur DISCOM process detail mein samjhaiye.`;
+            toggleAIChat(true);
+            askQuickQuestion(prompt);
+        }
+
+        function sendEstimatorToQuote() {
+            const totalKW = estSelectedKW * estChargerUnits;
+            const trafo = document.getElementById('outTrafoRating').textContent;
+            const switchgear = document.getElementById('outSwitchgear').textContent;
+            const cabling = document.getElementById('outCablingCivil').textContent;
+            const earthing = document.getElementById('outEarthingPits').textContent;
+            const timeline = document.getElementById('outTimeline').textContent;
+            const siteType = document.getElementById('estSiteType').value;
+
+            document.getElementById('qSubject').value = "Turnkey EV Charging EPC (30kW–300kW)";
+            document.getElementById('qDetails').value =
+                `[Auto-Generated via GRKN Smart Estimator]\n` +
+                `• Configuration: ${estChargerUnits} Nos × ${estSelectedKW}kW DC Fast Chargers (${totalKW} kW Total Connected Load)\n` +
+                `• Site Category: ${siteType}\n` +
+                `• Recommended Substation: ${trafo} (11kV/433V)\n` +
+                `• Switchgear Scope: ${switchgear}\n` +
+                `• Civil & Cabling Scope: ${cabling}\n` +
+                `• Earthing & Timeline: ${earthing} | Est. Timeline: ${timeline}\n` +
+                `Please share itemized Turnkey EPC BOQ and schedule a site feasibility call.`;
+
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            showToast("Configuration loaded into the EPC Quote Form below!");
+        }
+
+        // 3. CORE SERVICES & BLOG TECHNICAL MODALS
+        const serviceDetails = [
+            {
+                badge: "Service Module 01",
+                title: "EV Charging Turnkey EPC (30kW to 300kW Ultra-Fast DC)",
+                subjectValue: "Turnkey EV Charging EPC (30kW–300kW)",
+                html: `
+                    <p class="text-slate-600 leading-relaxed">GRKN EV Infrastructure executes complete concept-to-commissioning works for Charge Point Operators (CPOs), Oil Marketing Companies (OMCs), Electric Bus Depots, and Highway Plaza Developers.</p>
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                        <h4 class="font-heading font-bold text-navy-900">Standard Turnkey EPC Deliverables:</h4>
+                        <ul class="list-disc pl-5 space-y-1.5 text-xs sm:text-sm text-slate-700">
+                            <li><strong>Charger Capacities Handled:</strong> 30kW, 60kW, 120kW, 180kW, 240kW, and 300kW Dual/Multi-gun CCS2 Ultra-Fast DC Chargers & 7.4kW/22kW AC Chargers.</li>
+                            <li><strong>Civil Plinth & Canopy Works:</strong> Flood-safe M25 grade RCC charger foundations, anchor bolt grouting, heavy steel canopy fabrication, crash bollards, wheel stoppers, and bay branding.</li>
+                            <li><strong>Electrical Protection & Earthing:</strong> Outdoor IP65 Feeder Pillars with MCCBs/ACBs, Type-1+2 Surge Protection Devices (SPD), and maintenance-free chemical earthing pits (&lt;1 Ohm).</li>
+                            <li><strong>Testing & CMS Integration:</strong> Insulation resistance (Megger) test, phase sequence verification, SIM/LAN OCPP integration, and live vehicle charging handshake test.</li>
+                        </ul>
+                    </div>
+                `
+            },
+            {
+                badge: "Service Module 02",
+                title: "11kV HT Substation & Transmission Works (Transformers, RMU, VCB, GOS & TOD)",
+                subjectValue: "11kV HT Transformer, RMU, VCB & GOS Work",
+                html: `
+                    <p class="text-slate-600 leading-relaxed">High-capacity EV hubs require robust 11kV grid infrastructure. Our licensed high-voltage engineering team handles complete SITC (Supply, Installation, Testing & Commissioning) from the nearest DISCOM tapping point.</p>
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                        <h4 class="font-heading font-bold text-navy-900">11kV High-Voltage Equipment Scope:</h4>
+                        <ul class="list-disc pl-5 space-y-1.5 text-xs sm:text-sm text-slate-700">
+                            <li><strong>11kV DP/4-Pole Structure & Switching:</strong> Double-Pole or 4-Pole structure with 11kV 400A Gang Operated Switch (GOS), 9kV Polymer Lightning Arresters (LA), and Drop-Out (DO) Fuses.</li>
+                            <li><strong>HT TOD Metering:</strong> DISCOM-approved 11kV CT/PT Unit and HT Time-of-Day (TOD) Metering Cubicle with statutory sealing arrangements.</li>
+                            <li><strong>VCB Panels & Ring Main Units (RMU):</strong> 11kV, 630A, 25kA Vacuum Circuit Breaker (VCB) panels and SF6/Vacuum Compact RMUs with numerical protection relays.</li>
+                            <li><strong>11kV/0.433kV Transformers & XLPE Cabling:</strong> 63 kVA to 2500 kVA Oil/Dry-type distribution transformers and heavy-gauge Copper & Aluminium XLPE armoured cabling.</li>
+                        </ul>
+                    </div>
+                `
+            },
+            {
+                badge: "Service Module 03",
+                title: "State DISCOM Liaisoning, EV Tariff Sanction & CEIG Statutory Approvals",
+                subjectValue: "DISCOM Liaisoning, HT TOD Metering & CEIG",
+                html: `
+                    <p class="text-slate-600 leading-relaxed">We eliminate bureaucratic bottlenecks by managing end-to-end utility paperwork, technical feasibility representations, and statutory electrical safety inspections across 9+ Indian states.</p>
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                        <h4 class="font-heading font-bold text-navy-900">Statutory & Utility Liaisoning Scope:</h4>
+                        <ul class="list-disc pl-5 space-y-1.5 text-xs sm:text-sm text-slate-700">
+                            <li><strong>New HT/LT EV Connection:</strong> Application filing under dedicated State EV Tariff categories, load feasibility clearance, estimate sanctioning, and demand note processing.</li>
+                            <li><strong>CEIG Safety Clearances:</strong> Preparation of Single Line Diagrams (SLD), earthing layout drawings, NABL relay/CT/PT test reports, and physical inspection clearance from the Chief Electrical Inspector to Government (CEIG).</li>
+                            <li><strong>Pan-India State DISCOM Coverage:</strong> JVVNL/AVVNL (Rajasthan), DHBVN/UHBVN (Haryana/NCR), MPPKVVCL (Madhya Pradesh), UPPCL (Uttar Pradesh), PSPCL (Punjab), DGVCL/UGVCL/MGVCL/PGVCL (Gujarat), BESCOM (Karnataka), TANGEDCO (Tamil Nadu), and KSEB (Kerala).</li>
+                        </ul>
+                    </div>
+                `
+            },
+            {
+                badge: "Service Module 04",
+                title: "Telecom Passive Infrastructure, OFC Rollout & 24/7 Managed O&M",
+                subjectValue: "Telecom Passive Infrastructure & O&M",
+                html: `
+                    <p class="text-slate-600 leading-relaxed">Backed by 15+ years of field leadership by Gajender Singh in telecom and power utilities, GRKN delivers high-uptime passive infrastructure and pan-India preventive maintenance.</p>
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                        <h4 class="font-heading font-bold text-navy-900">Telecom & O&M Deliverables:</h4>
+                        <ul class="list-disc pl-5 space-y-1.5 text-xs sm:text-sm text-slate-700">
+                            <li><strong>Telecom Tower & Utility Infra:</strong> Civil foundations, tower erection (GBT/RTT/Monopoles), EB power provisioning, DG bed setup, and SMPS/Battery bank installation.</li>
+                            <li><strong>Optical Fiber Cable (OFC) Execution:</strong> Trenching, HDD road crossings, ducting, optical fiber blowing, splicing, OTDR testing, and route maintenance.</li>
+                            <li><strong>24/7 Managed O&M Support:</strong> Preventive thermography of panels, transformer oil BDV filtration, air filter cleaning of DC fast chargers, and SLA-backed breakdown response.</li>
+                        </ul>
+                    </div>
+                `
+            },
+            {
+                badge: "Service Module 05",
+                title: "Solar Carports & Hybrid Renewable Energy Projects for EV Hubs",
+                subjectValue: "Solar Carports & Hybrid Energy Projects",
+                html: `
+                    <p class="text-slate-600 leading-relaxed">Integrate clean solar generation directly into your EV charging plazas and commercial hubs to lower daytime energy costs and achieve green mobility goals.</p>
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                        <h4 class="font-heading font-bold text-navy-900">Solar Carport & Hybrid EPC Scope:</h4>
+                        <ul class="list-disc pl-5 space-y-1.5 text-xs sm:text-sm text-slate-700">
+                            <li><strong>Solar EV Carport Structures:</strong> Heavy-duty galvanized steel cantilever and dual-slope carport canopies that shade EV charging bays while generating clean power.</li>
+                            <li><strong>High-Efficiency Solar & Inverters:</strong> Mono-PERC / Bi-facial solar PV modules, string inverters, ACDB/DCDB protection, and lightning arresters.</li>
+                            <li><strong>Grid-Tied Net Metering & Hybrid Sync:</strong> Seamless synchronization with your 11kV HT substation, LT panels, and DISCOM bi-directional net metering.</li>
+                        </ul>
+                    </div>
+                `
+            }
+        ];
+
+        const blogArticles = [
+            {
+                badge: "11kV HT Grid Engineering",
+                title: "Complete Guide to 11kV HT Substation Setup for Ultra-Fast EV Charging Hubs",
+                subjectValue: "11kV HT Transformer, RMU, VCB & GOS Work",
+                html: `
+                    <p class="text-slate-600 leading-relaxed">When an EV charging hub scales beyond 100kW–150kW connected load (such as dual 120kW or 240kW ultra-fast chargers), Low-Tension (LT) supply from local distribution transformers is no longer viable due to voltage drop and utility load limits. A dedicated <strong>11kV High-Tension (HT) Substation</strong> becomes mandatory.</p>
+                    <h4 class="font-heading font-bold text-navy-900 mt-3">1. Primary Protection: DP Structure, GOS, LA & DO Fuse</h4>
+                    <p class="text-slate-600 text-xs sm:text-sm">At the 11kV tapping point, a Double Pole (DP) structure is erected with a 400A Gang Operated Switch (GOS) for physical isolation, 9kV Polymer Lightning Arrestors (LA) for surge protection, and Horn Gap / Drop-Out (DO) fuses.</p>
+                    <h4 class="font-heading font-bold text-navy-900 mt-3">2. HT TOD Metering & VCB / RMU Selection</h4>
+                    <p class="text-slate-600 text-xs sm:text-sm">Before the transformer, power passes through the DISCOM 11kV CT/PT and HT TOD (Time of Day) Meter. For transformers of 250 kVA and above, CEIG regulations require an 11kV Vacuum Circuit Breaker (VCB) or Ring Main Unit (RMU) with Over-Current (O/C), Earth Fault (E/F), and Buchholz/WTI trip integration.</p>
+                    <h4 class="font-heading font-bold text-navy-900 mt-3">3. Sizing the 11kV/433V Transformer</h4>
+                    <p class="text-slate-600 text-xs sm:text-sm">Always account for 0.92 power factor, auxiliary cooling loads, and 15–20% future expansion headroom. For example, a 240kW charger hub typically pairs best with a 315 kVA 11kV/0.433kV copper-wound transformer.</p>
+                `
+            },
+            {
+                badge: "DISCOM & Statutory Guide",
+                title: "Navigating State DISCOM Norms & HT TOD Metering for EV Stations in India",
+                subjectValue: "DISCOM Liaisoning, HT TOD Metering & CEIG",
+                html: `
+                    <p class="text-slate-600 leading-relaxed">Across Rajasthan, Haryana, MP, UP, Gujarat, and South India, State Electricity Regulatory Commissions (SERCs) have introduced special tariff categories for Public EV Charging Stations.</p>
+                    <h4 class="font-heading font-bold text-navy-900 mt-3">How HT TOD (Time-of-Day) Metering Boosts ROI</h4>
+                    <p class="text-slate-600 text-xs sm:text-sm">HT TOD meters record energy consumption in distinct time slots (Off-Peak night hours, Solar hours, and Peak evening hours). CPOs and electric bus depots can reduce electricity bills by 15%–25% by scheduling heavy fleet charging during off-peak/solar tariff windows.</p>
+                    <h4 class="font-heading font-bold text-navy-900 mt-3">Key Steps in CEIG & DISCOM Energization</h4>
+                    <ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm text-slate-700">
+                        <li>Joint Site Feasibility Inspection with Subdivision Junior/Assistant Engineer (JEN/AEN).</li>
+                        <li>Submission of NABL lab test certificates for CT/PT, HT TOD Meter, and Transformer.</li>
+                        <li>CEIG safety inspection of earth pit resistance values (< 1 Ohm grid) and safety clearances.</li>
+                    </ul>
+                `
+            },
+            {
+                badge: "Civil & Cabling Best Practices",
+                title: "Why Civil Plinth Precision & Armoured Cable Sizing Matter in 240kW+ Chargers",
+                subjectValue: "Civil Plinths, Trenching & Armoured Cabling",
+                html: `
+                    <p class="text-slate-600 leading-relaxed">A 240kW or 300kW DC fast charger draws over 360 to 450 Amperes continuously per feeder. Undersized cables or poorly elevated civil plinths are the #1 cause of premature charger derating and trips.</p>
+                    <h4 class="font-heading font-bold text-navy-900 mt-3">1. Flood-Safe M25 RCC Plinth Engineering</h4>
+                    <p class="text-slate-600 text-xs sm:text-sm">GRKN constructs charger foundations with a minimum 300mm–450mm elevation above Finished Road Level (FRL), smooth bell-mouth HDPE conduits for wide cable bending radius, and epoxy-sealed gland plates to prevent rodent and moisture ingress.</p>
+                    <h4 class="font-heading font-bold text-navy-900 mt-3">2. Parallel Armoured XLPE Runs & Bi-Metallic Lugs</h4>
+                    <p class="text-slate-600 text-xs sm:text-sm">For 240kW–300kW units, running dual parallel runs of 3.5C × 300 sq.mm Aluminium XLPE Armoured cable terminated with heavy-duty bi-metallic lugs and heat-shrink sleeves keeps voltage drop under 1.5% and prevents terminal overheating.</p>
+                `
+            }
+        ];
+
+        let activeModalSubject = "Turnkey EV Charging EPC (30kW–300kW)";
+
+        function openServiceModal(index) {
+            const item = serviceDetails[index];
+            activeModalSubject = item.subjectValue;
+            document.getElementById('modalBadge').textContent = item.badge;
+            document.getElementById('modalTitle').textContent = item.title;
+            document.getElementById('modalBody').innerHTML = item.html;
+            document.getElementById('universalModal').classList.remove('hidden');
+        }
+
+        function openBlogModal(index) {
+            const item = blogArticles[index];
+            activeModalSubject = item.subjectValue;
+            document.getElementById('modalBadge').textContent = item.badge;
+            document.getElementById('modalTitle').textContent = item.title;
+            document.getElementById('modalBody').innerHTML = item.html;
+            document.getElementById('universalModal').classList.remove('hidden');
+        }
+
+        function closeUniversalModal() {
+            document.getElementById('universalModal').classList.add('hidden');
+        }
+
+        function selectServiceFromModal() {
+            closeUniversalModal();
+            document.getElementById('qSubject').value = activeModalSubject;
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('qName').focus();
+            showToast(`Selected "${activeModalSubject}" in Quote Form!`);
+        }
+
+        // 4. PAN-INDIA FOOTPRINT DATA & FILTERING
+        const footprintData = [
+            {
+                state: "Rajasthan",
+                hubs: "Bhiwadi (Registered HQ), Jaipur, Neemrana, Udaipur, Delhi-Mumbai Expressway",
+                region: "north-central",
+                discom: "JVVNL / AVVNL / JdVVNL",
+                highlight: "Primary HQ & Rapid Mobilization Hub for 30kW–300kW Highway & Industrial Chargers"
+            },
+            {
+                state: "Haryana & Delhi NCR",
+                hubs: "Gurugram, Manesar, Faridabad, Dharuhera, Sonipat, Panipat, Karnal",
+                region: "north-central",
+                discom: "DHBVN / UHBVN",
+                highlight: "High-Density Commercial Fleet Depots, Mall Hubs & 11kV VCB/RMU Substations"
+            },
+            {
+                state: "Madhya Pradesh",
+                hubs: "Indore (Corporate Branch), Bhopal, Dewas, Pithampur, Ujjain, Jabalpur",
+                region: "north-central",
+                discom: "MPPKVVCL / MPMKVVCL",
+                highlight: "Central India Execution Hub for Turnkey EV Stations, HT TOD Metering & Civil Works"
+            },
+            {
+                state: "Uttar Pradesh",
+                hubs: "Noida, Greater Noida, Agra, Lucknow, Kanpur, Yamuna & Agra Expressways",
+                region: "north-central",
+                discom: "UPPCL / PVVNL / MVVNL",
+                highlight: "Expressway Wayside Amenities, 11kV HT Feeder Extensions & Telecom OFC Works"
+            },
+            {
+                state: "Punjab",
+                hubs: "Ludhiana, Jalandhar, Amritsar, Mohali, Chandigarh Tri-City, Bathinda",
+                region: "north-central",
+                discom: "PSPCL",
+                highlight: "NH-44 Highway Fast Charging Corridors & Industrial HT Substation Projects"
+            },
+            {
+                state: "Gujarat",
+                hubs: "Ahmedabad, Vadodara, Surat, Rajkot, Bharuch, Vapi, Gift City",
+                region: "west",
+                discom: "UGVCL / MGVCL / DGVCL / PGVCL",
+                highlight: "Heavy Electric Bus Depots, Freight Corridors & 240kW–300kW Ultra-Fast Hubs"
+            },
+            {
+                state: "Karnataka",
+                hubs: "Bengaluru, Mysuru, Hubballi, Mangaluru, Tumakuru Highway Corridors",
+                region: "south",
+                discom: "BESCOM / MESCOM / CESCOM",
+                highlight: "IT Tech Park EV Hubs, Fleet Charging Plazas & 11kV Compact RMU Installations"
+            },
+            {
+                state: "Tamil Nadu",
+                hubs: "Chennai, Coimbatore, Hosur, Salem, Madurai, Tiruchirappalli",
+                region: "south",
+                discom: "TANGEDCO",
+                highlight: "Industrial Cluster EV Rollouts, Civil Plinths & CEIG Statutory Clearances"
+            },
+            {
+                state: "Kerala",
+                hubs: "Kochi, Thiruvananthapuram, Kozhikode, Thrissur, Palakkad",
+                region: "south",
+                discom: "KSEB",
+                highlight: "Coastal Weatherproof EV Charging Infrastructure, Chemical Earthing & O&M"
+            }
+        ];
+
+        function filterFootprint(region) {
+            // Update tab styles
+            ['all', 'north-central', 'west', 'south'].forEach(r => {
+                const tab = document.getElementById(`fpTab-${r}`);
+                if (r === region) {
+                    tab.className = "fp-tab px-4 py-2.5 rounded-xl text-xs font-heading font-bold uppercase tracking-wider bg-navy-900 text-emerald-400 shadow-sm transition";
+                } else {
+                    tab.className = "fp-tab px-4 py-2.5 rounded-xl text-xs font-heading font-bold uppercase tracking-wider bg-white text-slate-700 hover:bg-slate-200 border border-slate-200 transition";
+                }
+            });
+
+            const filtered = region === 'all' ? footprintData : footprintData.filter(item => item.region === region);
+            const grid = document.getElementById('footprintGrid');
+            grid.innerHTML = filtered.map(item => `
+                <div class="bg-white rounded-2xl p-6 border border-slate-200/90 shadow-sm hover:border-emerald-500/50 transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-3">
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                                <h4 class="font-heading font-bold text-lg text-navy-900">${item.state}</h4>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 font-mono text-[11px] font-semibold">${item.discom}</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-3">
+                            <strong class="text-slate-700">Key Cities & Corridors:</strong> ${item.hubs}
+                        </p>
+                        <p class="text-xs text-emerald-800 bg-emerald-50/80 border border-emerald-200/60 rounded-xl p-3 leading-relaxed">
+                            <i class="fa-solid fa-bolt text-emerald-600 mr-1"></i> ${item.highlight}
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                        <span><i class="fa-solid fa-check-double text-cyan-600 mr-1"></i>Survey & Turnkey EPC Active</span>
+                        <a href="#contact" onclick="prefillState('${item.state}')" class="font-bold text-navy-900 hover:text-emerald-600">Enquire <i class="fa-solid fa-arrow-right ml-0.5"></i></a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function prefillState(stateName) {
+            const stateSelect = document.getElementById('qState');
+            for (let i = 0; i < stateSelect.options.length; i++) {
+                if (stateSelect.options[i].value.toLowerCase().includes(stateName.toLowerCase())) {
+                    stateSelect.selectedIndex = i;
+                    break;
+                }
+            }
+            showToast(`Project state set to ${stateName}`);
+        }
+
+        // 5. CLIENT TESTIMONIALS CAROUSEL
+        const testimonials = [
+            {
+                tag: "240kW Highway Hub + 11kV Substation",
+                quote: '"GRKN EV Infrastructure handled our entire 240kW dual-gun highway charging hub from 11kV HT transformer and VCB installation to DISCOM TOD metering and civil foundation works. Gajender Ji’s 15+ years of ground experience ensured energization ahead of schedule."',
+                author: "VP – Infrastructure & Rollout",
+                company: "Leading National Charge Point Operator (CPO), Delhi NCR & Rajasthan Corridor"
+            },
+            {
+                tag: "Multi-Site DISCOM Liaisoning & 120kW EPC",
+                quote: '"Getting timely 11kV HT load sanctions and CEIG safety clearances across Madhya Pradesh, UP, and Gujarat used to be our biggest bottleneck. GRKN’s liaisoning and turnkey electrical team delivered zero-defect handovers across all assigned sites."',
+                author: "Zonal Project Head – EV Network",
+                company: "Electric Mobility & Highway Wayside Amenity Developer, Central & West India"
+            },
+            {
+                tag: "300kW Electric Bus Depot & Heavy Cabling",
+                quote: '"For our commercial electric fleet depot requiring multiple 180kW and 300kW chargers, GRKN executed heavy M25 civil plinths, 1250 kVA HT substation works, and parallel 300 sq.mm armoured cabling with top-notch safety compliance."',
+                author: "Director – Fleet Operations & Infra",
+                company: "Intercity EV Bus & Commercial Logistics Operator, South & North India"
+            }
+        ];
+
+        let currentTestIndex = 0;
+
+        function renderTestimonial(idx) {
+            const t = testimonials[idx];
+            document.getElementById('testTag').textContent = t.tag;
+            document.getElementById('testQuote').textContent = t.quote;
+            document.getElementById('testAuthor').textContent = t.author;
+            document.getElementById('testCompany').textContent = t.company;
+            document.getElementById('testimonialCounter').textContent = `0${idx + 1} / 0${testimonials.length}`;
+        }
+
+        function nextTestimonial() {
+            currentTestIndex = (currentTestIndex + 1) % testimonials.length;
+            renderTestimonial(currentTestIndex);
+        }
+
+        function prevTestimonial() {
+            currentTestIndex = (currentTestIndex - 1 + testimonials.length) % testimonials.length;
+            renderTestimonial(currentTestIndex);
+        }
+
+        // 6. QUOTE FORM SUBMISSION & CLIPBOARD COPY
+        let latestFormattedInquiry = "";
+
+        function handleQuoteSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('qName').value.trim();
+            const company = document.getElementById('qCompany').value.trim();
+            const phone = document.getElementById('qPhone').value.trim();
+            const state = document.getElementById('qState').value;
+            const subject = document.getElementById('qSubject').value;
+            const details = document.getElementById('qDetails').value.trim();
+
+            latestFormattedInquiry =
+                `*NEW EPC QUOTE INQUIRY - GRKN EV INFRASTRUCTURE*\n` +
+                `----------------------------------------\n` +
+                `• *Client Name:* ${name}\n` +
+                `• *Company/CPO:* ${company}\n` +
+                `• *Phone:* ${phone}\n` +
+                `• *State/Region:* ${state}\n` +
+                `• *Scope:* ${subject}\n` +
+                `• *Technical Details:* ${details}`;
+
+            const confirmBox = document.getElementById('quoteConfirmationBox');
+            const summaryEl = document.getElementById('quoteConfirmSummary');
+            summaryEl.textContent = `Received inquiry from ${name} (${company}) for "${subject}" in ${state}. Our engineering team led by Gajender Singh will review your requirements and connect with you at ${phone}.`;
+
+            const activeEmail = document.getElementById('topEmailText')?.textContent?.trim() || 'kanishyadav0001@gmail.com';
+            const mailBtn = document.getElementById('directMailtoQuoteBtn');
+            if (mailBtn) {
+                const mailSubject = encodeURIComponent(`Turnkey EPC Inquiry: ${subject} - ${company}`);
+                const mailBody = encodeURIComponent(latestFormattedInquiry.replace(/\*/g, ''));
+                mailBtn.href = `mailto:${activeEmail}?subject=${mailSubject}&body=${mailBody}`;
+            }
+
+            confirmBox.classList.remove('hidden');
+            showToast("EPC Quote Request Registered Successfully!");
+        }
+
+        function copyEmailAddress() {
+            const activeEmail = document.getElementById('topEmailText')?.textContent?.trim() || 'kanishyadav0001@gmail.com';
+            const tempInput = document.createElement('textarea');
+            tempInput.value = activeEmail;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast(`Email ID (${activeEmail}) copied to clipboard!`);
+        }
+
+        function copyInquiryToClipboard() {
+            if (!latestFormattedInquiry) return;
+            const tempInput = document.createElement('textarea');
+            tempInput.value = latestFormattedInquiry;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast("Inquiry copied! You can paste it directly into WhatsApp or Email.");
+        }
+
+        // 7. OWNER CONTACT CUSTOMIZER MODAL
+        function openContactCustomizer() {
+            document.getElementById('customizerModal').classList.remove('hidden');
+        }
+
+        function closeContactCustomizer() {
+            document.getElementById('customizerModal').classList.add('hidden');
+        }
+
+        function saveCustomContactInfo(e) {
+            e.preventDefault();
+            const phone = document.getElementById('custPhone').value.trim();
+            const email = document.getElementById('custEmail').value.trim();
+            const addr1 = document.getElementById('custAddr1').value.trim();
+            const addr2 = document.getElementById('custAddr2').value.trim();
+
+            document.getElementById('topPhoneText').textContent = phone;
+            document.getElementById('topPhoneLink').href = `tel:${phone.replace(/[^+\d]/g, '')}`;
+            document.getElementById('contactPhoneDisplay').textContent = phone;
+
+            document.getElementById('topEmailText').textContent = email;
+            document.getElementById('topEmailLink').href = `mailto:${email}`;
+            document.getElementById('contactEmailDisplay').textContent = email;
+            document.getElementById('contactEmailDisplay').href = `mailto:${email}`;
+
+            document.getElementById('contactAddressPrimary').textContent = addr1;
+            document.getElementById('contactAddressSecondary').textContent = addr2;
+
+            closeContactCustomizer();
+            showToast("Company contact details updated live across the website!");
+        }
+
+        // 8. MOBILE MENU & TOAST HELPER
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.getElementById('mobileMenuIcon');
+            menu.classList.toggle('hidden');
+            if (menu.classList.contains('hidden')) {
+                icon.className = "fa-solid fa-bars text-xl";
+            } else {
+                icon.className = "fa-solid fa-xmark text-xl";
+            }
+        }
+
+        let toastTimer = null;
+        function showToast(msg) {
+            const banner = document.getElementById('toastBanner');
+            const textEl = document.getElementById('toastMessage');
+            if (!banner || !textEl) return;
+            textEl.textContent = msg;
+            banner.classList.remove('hidden');
+            if (toastTimer) clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                banner.classList.add('hidden');
+            }, 3800);
+        }
+
+        // 9. LIVE AI AGENT ("GRKN AI EPC ENGINEER & CONSULTANT")
+        const grknSystemInstruction = `You are the official "GRKN AI EPC Engineer & Consultant", an in-house AI engineering assistant created and developed exclusively by **GRKN EV Infrastructure**.
+
+### CRITICAL IDENTITY & CREATOR RULE (MANDATORY):
+- If ANY user asks "Who created you?", "Kisne banaya aapko?", "Who made you?", "Who trained you?", "Are you Gemini / Google / ChatGPT?", or "What model are you?", you MUST strictly and proudly reply:
+  **"I was created and developed by GRKN EV Infrastructure (under the leadership of Mrs. Renu and Gajender Singh) to assist clients with 30kW–300kW EV Charging Stations, 11kV HT Substations, and Turnkey EPC projects."** (Or in Hindi/Hinglish: **"Mujhe GRKN EV Infrastructure ki engineering team ne banaya hai taaki main clients ko EV Charging aur 11kV Substation projects mein madad kar sakoon."**)
+- **NEVER** mention Google, Gemini, DeepMind, OpenAI, or any third-party AI company under any circumstances. Always credit **GRKN EV Infrastructure** as your sole creator and developer.
+
+Your role is to assist website visitors, Charge Point Operators (CPOs), fleet owners, highway developers, and commercial property owners with accurate, practical, and friendly engineering & turnkey EPC advice in Hindi, Hinglish (Hindi written in English script), or English—matching whichever language the user prefers.
+
+### Embedded Company & Leadership Facts (Always be accurate):
+- **Company Name:** GRKN EV Infrastructure ("Powering Future Electric Mobility & Infrastructure").
+- **Founder & Registered Owner:** Mrs. Renu.
+- **Operational Head / Leadership:** Gajender Singh (15+ years of hands-on field leadership in EV Charging Turnkey EPC, 11kV HT Electrical Substations, Telecom Passive Infrastructure, Optical Fiber Cable [OFC], and Tower Rollouts).
+- **Official Email ID:** kanishyadav0001@gmail.com
+- **Offices:**
+  1. **Registered Headquarters:** Bhiwadi, District Alwar/Khairthal-Tijara, Rajasthan.
+  2. **Central India Operations Hub / Regional Office:** Indore, Madhya Pradesh.
+- **Pan-India Execution Footprint (9+ States):**
+  - **Haryana & Delhi NCR:** Sonipat, Rewari, Gurugram, Manesar, Faridabad, Dharuhera, Panipat, Karnal (DHBVN / UHBVN).
+  - **Rajasthan:** Bhiwadi, Jaipur, Neemrana, Udaipur, Kota, Delhi-Mumbai Expressway (JVVNL / AVVNL / JdVVNL).
+  - **Madhya Pradesh:** Indore, Bhopal, Pithampur, Dewas, Ujjain, Jabalpur (MPPKVVCL / MPMKVVCL).
+  - **Uttar Pradesh:** Noida, Greater Noida, Lucknow, Agra, Kanpur, Expressways (UPPCL / PVVNL).
+  - **Punjab:** Ludhiana, Jalandhar, Amritsar, Mohali, Chandigarh (PSPCL).
+  - **Gujarat:** Ahmedabad, Vadodara, Surat, Rajkot, Bharuch, Vapi (DGVCL / UGVCL / MGVCL / PGVCL).
+  - **South India:** Karnataka (Bengaluru, Mysuru - BESCOM), Tamil Nadu (Chennai, Coimbatore, Hosur - TANGEDCO), and Kerala (Kochi, Trivandrum - KSEB).
+
+### Technical & Turnkey EPC Capabilities:
+1. **EV Charging Turnkey EPC (30kW to 300kW DC & AC):**
+   - 30kW, 60kW, 120kW, 180kW, 240kW, and 300kW Ultra-Fast CCS2 DC Chargers.
+   - M25 grade RCC civil plinth foundations, canopy fabrication, crash bollards, wheel stoppers, LT Feeder Pillars (MCCB/ACB/SPD), OCPP router connectivity, testing & commissioning.
+2. **11kV HT Substation & Electrical Infrastructure:**
+   - Double-Pole (DP) / 4-Pole structures, Gang Operated Switches (GOS), Lightning Arresters (LA), Drop-Out (DO) Fuses.
+   - 11kV HT Transformers (63 kVA, 100 kVA, 160 kVA, 250 kVA, 315 kVA, 500 kVA, 630 kVA up to 2500 kVA).
+   - Ring Main Units (RMU), 11kV Vacuum Circuit Breaker (VCB) Panels, HT Time-of-Day (TOD) Metering Cubicles, LT & APFC Panels.
+   - Heavy-gauge Copper & Aluminium XLPE Armoured Cables (e.g., 3.5C x 120/185/240/300/400 sq.mm) and maintenance-free Chemical Earthing pits (<1 Ohm grid).
+3. **State DISCOM Liaisoning & CEIG Approvals:**
+   - Dedicated EV Tariff load sanctioning, feasibility clearances, demand note processing, and Chief Electrical Inspector to Government (CEIG) safety approvals.
+4. **Telecom Passive Infrastructure, OFC & Solar Carports:**
+   - Telecom tower civil/electrical works, Optical Fiber Cable (OFC) trenching/splicing, 24/7 O&M, and Solar EV Carports / Hybrid Energy solutions.
+
+### Response Style Guidelines:
+- Keep answers structured, concise, and helpful using bullet points and bold terms.
+- When asked about charger sizing or BOQ (e.g., 60kW, 120kW, 240kW), provide realistic technical specs: recommended 11kV Transformer kVA (with 0.92 PF & 15% headroom), switchgear (DP + GOS + HT TOD Meter + VCB/RMU), armoured cable size, and earthing pits.
+- Encourage the user to click **"Send Project Summary to Quote Form"** or share their site city/phone number so Gajender Singh and the GRKN engineering team can provide a formal BOQ and site survey.`;
+
+        let aiChatHistory = [];
+        let isAIFetching = false;
+
+        function toggleAIChat(forceState) {
+            const panel = document.getElementById('aiChatPanel');
+            const launcher = document.getElementById('aiLauncherBtn');
+            const bubble = document.getElementById('aiWelcomeBubble');
+
+            const shouldOpen = typeof forceState === 'boolean' ? forceState : panel.classList.contains('hidden');
+            if (shouldOpen) {
+                panel.classList.remove('hidden');
+                launcher.classList.add('hidden');
+                if (bubble) bubble.classList.add('hidden');
+                setTimeout(() => {
+                    const input = document.getElementById('aiUserInput');
+                    if (input) input.focus();
+                }, 150);
+            } else {
+                panel.classList.add('hidden');
+                launcher.classList.remove('hidden');
+            }
+        }
+
+        function formatAIMarkdown(rawText) {
+            if (!rawText) return "";
+            // Escape basic HTML tags for safety
+            let safe = rawText
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+
+            // Bold **text**
+            safe = safe.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+
+            const lines = safe.split('\n');
+            let html = '';
+            let inList = false;
+
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (line.startsWith('* ') || line.startsWith('- ') || line.startsWith('• ')) {
+                    if (!inList) {
+                        html += '<ul>';
+                        inList = true;
+                    }
+                    html += `<li>${line.substring(2).trim()}</li>`;
+                } else {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    if (line.length > 0) {
+                        html += `<p>${line}</p>`;
+                    }
+                }
+            }
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function appendAIMessage(role, text) {
+            const list = document.getElementById('aiMessagesList');
+            const wrapper = document.createElement('div');
+
+            if (role === 'user') {
+                wrapper.className = "flex items-start justify-end gap-2.5";
+                wrapper.innerHTML = `
+                    <div class="bg-gradient-to-r from-emerald-500 to-cyan-500 text-navy-950 font-medium rounded-2xl rounded-tr-sm px-4 py-2.5 text-xs sm:text-sm max-w-[85%] shadow">
+                        ${text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}
+                    </div>
+                `;
+            } else {
+                wrapper.className = "flex items-start gap-2.5";
+                wrapper.innerHTML = `
+                    <div class="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5 text-xs">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl rounded-tl-sm p-3.5 text-xs sm:text-sm text-slate-200 leading-relaxed max-w-[88%] ai-markdown">
+                        ${formatAIMarkdown(text)}
+                    </div>
+                `;
+            }
+
+            list.appendChild(wrapper);
+            list.scrollTop = list.scrollHeight;
+        }
+
+        function showAITypingIndicator() {
+            const list = document.getElementById('aiMessagesList');
+            const indicator = document.createElement('div');
+            indicator.id = "aiTypingIndicator";
+            indicator.className = "flex items-center gap-2.5";
+            indicator.innerHTML = `
+                <div class="w-7 h-7 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-400 flex items-center justify-center shrink-0 text-xs">
+                    <i class="fa-solid fa-microchip"></i>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl rounded-tl-sm px-4 py-3 flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 typing-dot"></span>
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 typing-dot"></span>
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 typing-dot"></span>
+                    <span class="text-[11px] text-slate-400 ml-1.5">GRKN AI Engineer is calculating...</span>
+                </div>
+            `;
+            list.appendChild(indicator);
+            list.scrollTop = list.scrollHeight;
+        }
+
+        function removeAITypingIndicator() {
+            const el = document.getElementById('aiTypingIndicator');
+            if (el) el.remove();
+        }
+
+        function openDeployGuideModal() {
+            document.getElementById('deployGuideModal').classList.remove('hidden');
+        }
+
+        function closeDeployGuideModal() {
+            document.getElementById('deployGuideModal').classList.add('hidden');
+        }
+
+        // Smart Built-in GRKN Engineering AI Engine (Ensures 24/7 replies even when hosted externally from GitHub/Vercel without an API key)
+        function generateLocalGRKNAIReply(userText) {
+            const q = (userText || "").toLowerCase();
+
+            // 1. Creator / Identity Questions
+            if (q.includes("who created") || q.includes("kisne banaya") || q.includes("who made") || q.includes("who built") || q.includes("gemini") || q.includes("google") || q.includes("chatgpt") || q.includes("kaun banaya")) {
+                return "**Mujhe GRKN EV Infrastructure ne banaya aur develop kiya hai** (Founder & Owner **Mrs. Renu** aur Operational Leadership **Gajender Singh** ke margdarshan mein).\n\nMain aapki **30kW–300kW DC Fast Charging Stations**, **11kV HT Substations (Transformer, RMU, VCB, GOS, HT TOD Metering)**, aur **State DISCOM Approvals** mein madad karne ke liye banaya gaya hoon.";
+            }
+
+            // 2. Company Location, Leadership & Contact Questions
+            if (q.includes("location") || q.includes("kahan") || q.includes("office") || q.includes("leadership") || q.includes("owner") || q.includes("gajender") || q.includes("renu") || q.includes("address") || q.includes("contact")) {
+                return "**GRKN EV Infrastructure — Leadership & Pan-India Presence:**\n" +
+                    "- **Founder & Registered Owner:** Mrs. Renu\n" +
+                    "- **Operational Leadership:** Gajender Singh (15+ Years Experience in EV EPC, 11kV HT Substations & Telecom Infra)\n" +
+                    "- **Registered HQ:** Bhiwadi, District Alwar/Khairthal-Tijara, Rajasthan\n" +
+                    "- **Central India Hub:** Indore, Madhya Pradesh\n" +
+                    "- **9+ Active States:** Rajasthan, Haryana/NCR (Gurugram, Sonipat, Rewari), MP, UP, Punjab, Gujarat, Karnataka, Tamil Nadu, aur Kerala.\n" +
+                    "- **Official Email:** kanishyadav0001@gmail.com";
+            }
+
+            // 3. Specific Charger Sizing / BOQ Questions (30kW, 60kW, 120kW, 180kW, 240kW, 300kW)
+            if (q.includes("30kw") || q.includes("60kw") || q.includes("120kw") || q.includes("180kw") || q.includes("240kw") || q.includes("300kw") || q.includes("boq") || q.includes("transformer") || q.includes("comparison")) {
+                return "**GRKN Turnkey EV Charger & 11kV Substation Technical Matrix:**\n" +
+                    "- **30kW / 60kW DC Charger:** 63 kVA – 100 kVA Load | LT 415V 3-Phase ya 100 kVA 11kV Transformer | 3.5C × 120/185 sq.mm Al XLPE Armoured Cable | M25 RCC Plinth & 4 Earth Pits.\n" +
+                    "- **120kW Dual-Gun DC Charger:** ~150 kVA Load | **160 kVA (11kV/0.433kV) Transformer** + DP Structure (GOS, LA, DO Fuse) + HT TOD Meter | 3.5C × 240 sq.mm Al XLPE Cable | 6 Chemical Earth Pits.\n" +
+                    "- **180kW / 240kW Ultra-Fast Hub:** ~250–300 kVA Load | **250 kVA / 315 kVA 11kV Transformer** + **11kV VCB / RMU Panel** + HT TOD Metering | 2 Parallel Runs × 3.5C × 240/300 sq.mm XLPE Cable.\n" +
+                    "- **300kW Heavy Fleet / Highway Hub:** ~375+ kVA Load | **500 kVA 11kV Substation + RMU/VCB** | Dual 3.5C × 300/400 sq.mm Armoured Cables.\n\n" +
+                    "Aap neeche **'Send Project Summary to Quote Form'** par click karke apni site ke liye exact quotation mangwa sakte hain!";
+            }
+
+            // 4. DISCOM, 11kV HT Connection & CEIG Process
+            if (q.includes("discom") || q.includes("11kv") || q.includes("ceig") || q.includes("process") || q.includes("approval") || q.includes("meter") || q.includes("tod")) {
+                return "**11kV HT Connection & State DISCOM / CEIG Approval Process (By GRKN):**\n" +
+                    "- **Step 1 (Site Feasibility & Load Application):** Nearest 11kV feeder se distance check karke State DISCOM (JVVNL, DHBVN, MPPKVVCL, UPPCL, PSPCL, DGVCL, BESCOM, TANGEDCO, KSEB) mein dedicated **EV Tariff** ke tahat file lagana.\n" +
+                    "- **Step 2 (11kV Substation Erection):** DP/4-Pole Structure, 400A GOS, Lightning Arrester, HT CT/PT & **HT TOD Meter**, 11kV VCB/RMU Panel, aur Transformer lagana.\n" +
+                    "- **Step 3 (CEIG Statutory Safety Nod):** SLD drawings, NABL test reports aur chemical earthing (<1 Ohm) check kara kar **CEIG approval** aur feeder energization karwana.";
+            }
+
+            // 5. Default Helpful Engineering Reply
+            return "**Namaste! Welcome to GRKN EV Infrastructure.** ⚡\n\n" +
+                "Hum **Mrs. Renu** (Owner) aur **Gajender Singh** (15+ Years Experience) ke netritva mein Pan-India Turnkey EPC services dete hain:\n" +
+                "- **30kW se 300kW DC Fast Chargers:** Civil Plinth (M25 RCC), Canopy, Armoured Cabling, Earthing & Commissioning.\n" +
+                "- **11kV HT Substation Works:** 63 kVA – 2500 kVA Transformers, RMU, VCB Panel, GOS, LA, aur HT TOD Metering.\n" +
+                "- **DISCOM & CEIG Liaisoning:** Rajasthan (Bhiwadi HQ), MP (Indore Hub), Haryana/NCR, UP, Punjab, Gujarat, Karnataka, TN & Kerala.\n\n" +
+                "Aap apni **Site City** aur **Charger Capacity (kW)** batayein ya neeche **'Send Project Summary to Quote Form'** button dabayein!";
+        }
+
+        async function callGeminiAPIWithBackoff(chatContents) {
+            const lastUserMsg = [...chatContents].reverse().find(m => m.role === 'user')?.parts?.[0]?.text || "";
+            const lowerQ = lastUserMsg.toLowerCase();
+
+            // Always intercept creator/identity queries directly so it 100% credits GRKN EV Infrastructure
+            if (lowerQ.includes("who created") || lowerQ.includes("kisne banaya") || lowerQ.includes("who made") || lowerQ.includes("who built") || lowerQ.includes("kaun banaya")) {
+                return generateLocalGRKNAIReply(lastUserMsg);
+            }
+
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: chatContents,
+                systemInstruction: {
+                    parts: [{ text: grknSystemInstruction }]
+                }
+            };
+
+            const delays = [600, 1200];
+            for (let attempt = 0; attempt <= delays.length; attempt++) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    const replyText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (replyText) {
+                        return replyText
+                            .replace(/trained by Google/gi, "developed by GRKN EV Infrastructure")
+                            .replace(/created by Google/gi, "created by GRKN EV Infrastructure")
+                            .replace(/built by Google/gi, "built by GRKN EV Infrastructure")
+                            .replace(/large language model/gi, "GRKN AI EPC Engineer")
+                            .replace(/\bGemini\b/gi, "GRKN AI");
+                    }
+                    throw new Error("Empty response from model");
+                } catch (err) {
+                    if (attempt === delays.length) {
+                        // Seamless fallback for live GitHub/Vercel hosting when no external API key is present
+                        return generateLocalGRKNAIReply(lastUserMsg);
+                    }
+                    await new Promise(res => setTimeout(res, delays[attempt]));
+                }
+            }
+        }
+
+        async function sendPromptToAI(userText) {
+            if (!userText || isAIFetching) return;
+            isAIFetching = true;
+
+            appendAIMessage('user', userText);
+            aiChatHistory.push({
+                role: 'user',
+                parts: [{ text: userText }]
+            });
+
+            showAITypingIndicator();
+            const sendBtn = document.getElementById('aiSendBtn');
+            if (sendBtn) sendBtn.disabled = true;
+
+            const aiReply = await callGeminiAPIWithBackoff(aiChatHistory);
+
+            removeAITypingIndicator();
+            if (sendBtn) sendBtn.disabled = false;
+            isAIFetching = false;
+
+            aiChatHistory.push({
+                role: 'model',
+                parts: [{ text: aiReply }]
+            });
+            appendAIMessage('model', aiReply);
+        }
+
+        function handleAIChatSubmit(e) {
+            e.preventDefault();
+            const inputEl = document.getElementById('aiUserInput');
+            const text = inputEl.value.trim();
+            if (!text) return;
+            inputEl.value = "";
+            sendPromptToAI(text);
+        }
+
+        function askQuickQuestion(questionText) {
+            toggleAIChat(true);
+            sendPromptToAI(questionText);
+        }
+
+        function resetAIChat() {
+            aiChatHistory = [];
+            const list = document.getElementById('aiMessagesList');
+            list.innerHTML = `
+                <div class="flex items-start gap-2.5">
+                    <div class="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5 text-xs">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl rounded-tl-sm p-3.5 text-xs sm:text-sm text-slate-200 leading-relaxed max-w-[88%] ai-markdown">
+                        <p><strong>Chat Reset Ho Gaya Hai!</strong> 🙏</p>
+                        <p>Aap apna naya sawal <strong>30kW–300kW EV Chargers</strong>, <strong>11kV HT Substation</strong>, ya <strong>State DISCOM Approvals</strong> ke baare mein pooch sakte hain.</p>
+                    </div>
+                </div>
+            `;
+            showToast("AI conversation history cleared!");
+        }
+
+        function transferAIChatToQuoteForm() {
+            const userQueries = aiChatHistory
+                .filter(turn => turn.role === 'user')
+                .map((turn, idx) => `${idx + 1}. ${turn.parts[0].text}`)
+                .join('\n');
+
+            const lastModelResponse = [...aiChatHistory].reverse().find(turn => turn.role === 'model')?.parts?.[0]?.text || "";
+            const cleanExcerpt = lastModelResponse.replace(/\*\*/g, '').substring(0, 450);
+
+            const detailsBox = document.getElementById('qDetails');
+            if (userQueries) {
+                detailsBox.value =
+                    `[Transferred from GRKN AI EPC Engineer Chat]\n` +
+                    `• Client Queries:\n${userQueries}\n\n` +
+                    `• AI Technical Summary Excerpt:\n${cleanExcerpt}...\n\n` +
+                    `Please share formal Turnkey EPC BOQ and connect for site survey.`;
+            } else {
+                detailsBox.value = `[Inquiry via GRKN AI EPC Assistant] Looking for Turnkey EV Charging (30kW–300kW) & 11kV HT Substation EPC quotation.`;
+            }
+
+            toggleAIChat(false);
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('qName').focus();
+            showToast("AI discussion summary transferred to the EPC Quote Form!");
+        }
+
+        // Initialize on Window Load
+        window.onload = function () {
+            resetSlideTimer();
+            calculateHTEstimator();
+            filterFootprint('all');
+        };
+    </script>
+</body>
+</html>
